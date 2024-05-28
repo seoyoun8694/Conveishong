@@ -10,7 +10,13 @@ function Login({}) {
 	  return (
 		  <FullView>
 			  <MainView>
-				  <MainText>회원가입 화면</MainText>
+				  <MainText>로그인 화면</MainText>
+				  <Text
+					  onPress={() => navigation.navigate('Register')}
+					  style={{ fontSize: 15, alignSelf: 'center', color: '#B7BABF', margin: 15 }}
+				  >
+					  회원가입
+				  </Text>
 			  </MainView>
 		  </FullView>
 	  );
