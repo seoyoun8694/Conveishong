@@ -1,31 +1,23 @@
-import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import 'react-native-gesture-handler';
+import React from 'react';
+import { SafeAreaView, StyleSheet, Text } from 'react-native';
 
-import { enableScreens } from 'react-native-screens';
-enableScreens();
+const App = () => {
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.text}>Hello, React Native!</Text>
+    </SafeAreaView>
+  );
+};
 
-import Login from "./src/pages/Login";
-import Register1 from "./src/pages/Register1";
-import Register2 from "./src/pages/Register2";
-import Register3 from "./src/pages/Register3";
-import Register4 from "./src/pages/Register4";
-import Register5 from "./src/pages/Register5";
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 20,
+  },
+});
 
-const Stack = createNativeStackNavigator();
-
-export default function App() {
-	return (
-		<NavigationContainer>
-			<Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
-				<Stack.Screen name="Login" component={Login} />
-				<Stack.Screen name="Register1" component={Register1} />
-				<Stack.Screen name="Register2" component={Register2} />
-				<Stack.Screen name="Register3" component={Register3} />
-				<Stack.Screen name="Register4" component={Register4} />
-				<Stack.Screen name="Register5" component={Register5} />
-			</Stack.Navigator>
-		</NavigationContainer>
-	);
-}
+export default App;
