@@ -2,22 +2,15 @@ import React from 'react';
 import { View, Text, Button, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styled, { ThemeProvider } from "styled-components"
-
 import images from "../components/images";
 
-function Login({}) {
+function Register2({}) {
 	const navigation = useNavigation();
   
 	  return (
 		  <FullView>
 			  <MainView>
-				  <MainText>로그인 화면</MainText>
-				  <Text
-					  onPress={() => navigation.navigate('Register1')}
-					  style={{ fontSize: 15, alignSelf: 'center', color: '#B7BABF', margin: 15 }}
-				  >
-					  회원가입
-				  </Text>
+				  <MainText>회원가입2 화면</MainText>
 			  </MainView>
 		  </FullView>
 	  );
@@ -43,4 +36,4 @@ function Login({}) {
 	  text-align: center;
   `;
   
-  export default Login;
+  export default Register2;

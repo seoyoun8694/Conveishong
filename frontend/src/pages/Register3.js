@@ -4,13 +4,13 @@ import { useNavigation } from '@react-navigation/native';
 import styled, { ThemeProvider } from "styled-components"
 import images from "../components/images";
 
-function Login({}) {
+function Register3({}) {
 	const navigation = useNavigation();
   
 	  return (
 		  <FullView>
 			  <MainView>
-				  <MainText>회원가입 화면</MainText>
+				  <MainText>회원가입3 화면</MainText>
 			  </MainView>
 		  </FullView>
 	  );
@@ -36,4 +36,4 @@ function Login({}) {
 	  text-align: center;
   `;
   
-  export default Login;
+  export default Register3;

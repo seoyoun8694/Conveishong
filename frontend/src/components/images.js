@@ -3,7 +3,7 @@ import Ann_Home from "../assets/Ann_Home.svg";
 import Ann_Info from "../assets/Ann_Info.svg";
 import Ann_User from "../assets/Ann_User.svg";
 
-import Back from "../assets/Back.svg";
+import Back from '../assets/Back.svg';
 import chatting from "../assets/chatting.svg";
 import menu from "../assets/menu.svg";
 import calendar_left from "../assets/calendar_left.svg";
