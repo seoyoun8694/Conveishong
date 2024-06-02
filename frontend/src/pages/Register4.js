@@ -3,8 +3,7 @@
 /* eslint-disable react/self-closing-comp */
 
 import React, { useState } from 'react';
-import
- {
+import {
 	View,
 	TouchableOpacity,
 	Text,
@@ -13,14 +12,10 @@ import { useNavigation } from '@react-navigation/native';
 import styled from "styled-components/native";
 
 import images from '../components/imgaes';
-function Register1({}) {
+
+function Register4({ }) {
 	const navigation = useNavigation();
 	const user_name = '홍길동';
-	const [selected, setSelected] = useState('partTime');
-
-	const handleImageClick = (type) => {
-		setSelected(type);
-	};
 
 	return (
 		<FullView>
@@ -29,40 +24,22 @@ function Register1({}) {
 				onPress={() => navigation.goBack()}
 			/>
 			<View style={{ flexDirection: 'row' }}>
-				<Bar style={{ backgroundColor: '#0066FF', width: '20%' }} />
+				<Bar style={{ backgroundColor: '#0066FF', width: '80%' }} />
 				<Bar />
 			</View>
 			
 			<MainView>
-				<MainText style={{ marginTop: 20 }}>안녕하세요 {user_name}님, {'\n'} 어떤 일을 하고 계신가요?</MainText>
-				<View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 40 }}>
-					<MainText>알바생</MainText>
-					<TouchableOpacity
-						style={{ marginBottom: 40 }}
-						onPress={() => handleImageClick('partTime')}
-					>
-						<StyledImage
-							source={selected === 'partTime' ? images.Register_PT : images.Register_PT1}
-						/>
-					</TouchableOpacity>
-
-					<MainText>점주</MainText>
-					<TouchableOpacity onPress={() => handleImageClick('president')}>
-						<StyledImage
-							source={selected === 'president' ? images.Register_P : images.Register_P1}
-						/>
-					</TouchableOpacity>
-				</View>
+				<MainText>회원가입 화면4</MainText>
 			</MainView>
 
 			<View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 20, position: 'absolute', bottom: 100}}>
-				<ResultCircle color={'#0066FF'} style={{width: 20}} />
 				<ResultCircle />
 				<ResultCircle />
-				<ResultCircle/>
+				<ResultCircle />
+				<ResultCircle color={'#0066FF'} style={{width: 20}}/>
 			</View>
 
-			<ResultButton onPress={() => navigation.navigate('Register2')}>
+			<ResultButton onPress={() => navigation.navigate('Register5')}>
 				<ResultButtonText>다음</ResultButtonText>
 			</ResultButton>
 		</FullView>
@@ -94,12 +71,6 @@ const Bar = styled.View`
 	margin-top: 20px;
 `;
 
-const StyledImage = styled.Image`
-	width: 250px;
-	height: 146px;
-	margin: 10px;
-`;
-
 const ResultButton = styled.TouchableOpacity`
 	width: 100%;
 	height: 70px;
@@ -124,4 +95,4 @@ const ResultCircle = styled.View`
 	border-radius: 100px;
 `;
 
-export default Register1;
+export default Register4;
