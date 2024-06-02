@@ -1,7 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable no-mixed-spaces-and-tabs */
-/* eslint-disable react/self-closing-comp */
-
 import React, { useState } from 'react';
 import {
 	View,
@@ -13,10 +9,26 @@ import styled from "styled-components/native";
 
 import images from '../components/imgaes';
 
+const locationList = [
+	{
+		name: 'GS25테크노파크점',
+		address: '경기 부천시 오정구 석천로345, 300동 114호(삼청동 365)'
+	},
+	{
+		name: 'GS2538선휴게소점',
+		address: '강원 양양군 현북면 동해대로1242, 38선 휴게소 (잔교리 41-10, 38휴게소)'
+	}
+];
+
 function Register2({ }) {
 	const navigation = useNavigation();
 	const user_name = '홍길동';
 	const [workLocation, setworkLocation] = useState(null);
+	const [selectedLocation, setSelectedLocation] = useState(null);
+
+	const handleLocationClick = (index) => {
+		setSelectedLocation(index === selectedLocation ? null : index);
+	};
 
 	return (
 		<FullView>
@@ -30,20 +42,34 @@ function Register2({ }) {
 			</View>
 			
 			<MainView>
-				<MainText>어느 지역에서 근무하고 계신가요?</MainText>
+				<MainText style={{ marginTop: 20 }}>어느 지역에서 근무하고 계신가요?</MainText>
 				<SerchBox>
-					<images.search />
+					<images.search style={{marginLeft: 60, marginTop: 12}} />
 					<InputBox
 						placeholder='근무지를 검색해주세요'
 						value={workLocation}
 						onChangeText={setworkLocation}
 					/>
 				</SerchBox>
+
+				<View style={{marginTop: 20}}>
+					{locationList.map((location, index) => (
+					<LocationBox
+						key={index}
+						onPress={() => handleLocationClick(index)}
+						selected={selectedLocation === index}
+					>
+						<MainText style={{ fontSize: 12 }}>{location.name}</MainText>
+						<LocationText>{location.address}</LocationText>
+					</LocationBox>
+				))}
+				</View>
+				
 			</MainView>
 
-			<View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 20, position: 'absolute', bottom: 100}}>
+			<View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 20, position: 'absolute', bottom: 100 }}>
 				<ResultCircle />
-				<ResultCircle color={'#0066FF'} style={{width: 20}}/>
+				<ResultCircle color={'#0066FF'} style={{ width: 20 }} />
 				<ResultCircle />
 				<ResultCircle />
 			</View>
@@ -87,6 +113,7 @@ const SerchBox = styled.TouchableOpacity`
 	border-radius: 15px;
 	justify-content: center;
 	flex-direction: row;
+	margin-top: 15px;
 `;
 
 const InputBox = styled.TextInput`
@@ -120,6 +147,20 @@ const ResultCircle = styled.View`
 	margin: 2px;
 	background-color: ${props => props.color || "#D9D9D9"};
 	border-radius: 100px;
+`;
+
+const LocationBox = styled.TouchableOpacity`
+	width: 280px;
+	height: 70px;
+	border: 1px solid ${props => props.selected ? '#0066FF' : 'transparent'};
+	padding: 10px;
+	border-radius: 15px;
+	margin-bottom: 5px;
+`;
+
+const LocationText = styled.Text`
+	font-size: 10px;
+    font-weight: normal;
 `;
 
 export default Register2;
