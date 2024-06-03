@@ -22,7 +22,6 @@ const locationList = [
 
 function Register2({ }) {
 	const navigation = useNavigation();
-	const user_name = '홍길동';
 	const [workLocation, setworkLocation] = useState(null);
 	const [selectedLocation, setSelectedLocation] = useState(null);
 

@@ -9,6 +9,9 @@ import Register_P1 from '../assets/Register_P1.png';
 import Register_circle from '../assets/Register_circle.svg';
 
 import search from '../assets/search.svg';
+import User_Profile from '../assets/User_Profile.svg';
+import Card_Register from '../assets/Card_Register.svg';
+import PartTIme_Work from '../assets/PartTIme_Work.svg';
 
 export const images = {
 	Back_icon: Back_icon,
@@ -19,6 +22,9 @@ export const images = {
 	Register_circle: Register_circle,
 
 	search: search,
+	User_Profile: User_Profile,
+	Card_Register: Card_Register,
+	PartTIme_Work: PartTIme_Work,
 };
 
 export default images;

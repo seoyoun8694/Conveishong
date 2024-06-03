@@ -15,7 +15,6 @@ import styled from "styled-components/native";
 import images from '../components/imgaes';
 function Register1({}) {
 	const navigation = useNavigation();
-	const user_name = '홍길동';
 	const [selected, setSelected] = useState('partTime');
 
 	const handleImageClick = (type) => {
@@ -34,7 +33,7 @@ function Register1({}) {
 			</View>
 			
 			<MainView>
-				<MainText style={{ marginTop: 20 }}>안녕하세요 {user_name}님, {'\n'} 어떤 일을 하고 계신가요?</MainText>
+				<MainText style={{ marginTop: 20 }}>컨비숑에 오신걸 환영합니다 ⭐{'\n'} 어떤 일을 하고 계신가요?</MainText>
 				<View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 40 }}>
 					<MainText>알바생</MainText>
 					<TouchableOpacity
