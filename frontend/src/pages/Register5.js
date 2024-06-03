@@ -28,7 +28,7 @@ function Register5({ }) {
 				</View>
 				<View style={{ position: 'absolute', bottom: 40, alignItems: 'center' }}>
 					<Text style={{ fontSize: 12, color: 'white', marginBottom: 10 }}>프로필 생성이 완료되었습니다!</Text>
-					<ResultButton onPress={() => navigation.navigate('Main')}>
+					<ResultButton onPress={() => navigation.navigate('Work1')}>
 						<ResultButtonText>시작하기</ResultButtonText>
 					</ResultButton>
 				</View>

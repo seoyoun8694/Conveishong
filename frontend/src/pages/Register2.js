@@ -42,6 +42,7 @@ function Register2({ }) {
 			
 			<MainView>
 				<MainText style={{ marginTop: 20 }}>어느 지역에서 근무하고 계신가요?</MainText>
+				<View style={{alignItems: 'center'}}>
 				<SerchBox>
 					<images.search style={{marginLeft: 60, marginTop: 12}} />
 					<InputBox
@@ -63,7 +64,7 @@ function Register2({ }) {
 					</LocationBox>
 				))}
 				</View>
-				
+				</View>
 			</MainView>
 
 			<View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 20, position: 'absolute', bottom: 100 }}>
@@ -106,7 +107,7 @@ const Bar = styled.View`
 `;
 
 const SerchBox = styled.TouchableOpacity`
-	width: 280px;
+	width: 300px;
 	height: 45px;
 	background-color: #F3F3F3;
 	border-radius: 15px;
@@ -149,7 +150,7 @@ const ResultCircle = styled.View`
 `;
 
 const LocationBox = styled.TouchableOpacity`
-	width: 280px;
+	width: 300px;
 	height: 70px;
 	border: 1px solid ${props => props.selected ? '#0066FF' : 'transparent'};
 	padding: 10px;

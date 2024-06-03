@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -7,54 +7,54 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import images from '../components/imgaes';
 
 function Register3({}) {
-  const navigation = useNavigation();
-  const [selectedDays, setSelectedDays] = useState([]);
-  const [selectedStartTimes, setSelectedStartTimes] = useState({});
-  const [selectedEndTimes, setSelectedEndTimes] = useState({});
-  const [showStartTimePicker, setShowStartTimePicker] = useState(false);
-  const [showEndTimePicker, setShowEndTimePicker] = useState(false);
+	const navigation = useNavigation();
+	const [selectedDays, setSelectedDays] = useState([]);
+	const [selectedStartTimes, setSelectedStartTimes] = useState({});
+	const [selectedEndTimes, setSelectedEndTimes] = useState({});
+	const [currentDay, setCurrentDay] = useState(null);
+	const [isStartTime, setIsStartTime] = useState(true);
 
-  const handleDayClick = (day) => {
-    if (selectedDays.includes(day)) {
-      setSelectedDays(selectedDays.filter((item) => item !== day));
-    } else {
-      setSelectedDays([...selectedDays, day]);
-      setSelectedStartTimes({
-        ...selectedStartTimes,
-        [day]: null,
-      });
-      setSelectedEndTimes({
-        ...selectedEndTimes,
-        [day]: null,
-      });
-    }
-  };
+	const handleDayClick = (day) => {
+		if (selectedDays.includes(day)) {
+			setSelectedDays(selectedDays.filter((item) => item !== day));
+			const newStartTimes = { ...selectedStartTimes };
+			const newEndTimes = { ...selectedEndTimes };
+			delete newStartTimes[day];
+			delete newEndTimes[day];
+			setSelectedStartTimes(newStartTimes);
+			setSelectedEndTimes(newEndTimes);
+		} else {
+			setSelectedDays([...selectedDays, day]);
+		}
+	};
 
-  const handleStartTimeChange = (event, selectedDate, day) => {
-    const selectedDateTime = selectedDate || new Date();
-    setSelectedStartTimes({
-      ...selectedStartTimes,
-      [day]: selectedDateTime,
-    });
-    setShowStartTimePicker(false);
-  };
+	const handleTimeChange = (event, selectedDate) => {
+		const selectedDateTime = selectedDate || new Date();
+		if (isStartTime) {
+			setSelectedStartTimes({
+				...selectedStartTimes,
+				[currentDay]: selectedDateTime,
+			});
+		} else {
+			setSelectedEndTimes({
+				...selectedEndTimes,
+				[currentDay]: selectedDateTime,
+			});
+		}
+		setCurrentDay(null);
+	};
 
-  const handleEndTimeChange = (event, selectedDate, day) => {
-    const selectedDateTime = selectedDate || new Date();
-    setSelectedEndTimes({
-      ...selectedEndTimes,
-      [day]: selectedDateTime,
-    });
-    setShowEndTimePicker(false);
-  };
+	const showTimepicker = (day, isStart) => {
+		setCurrentDay(day);
+		setIsStartTime(isStart);
+	};
 
-  const showStartTimepicker = (day) => {
-    setShowStartTimePicker(true);
-  };
-
-  const showEndTimepicker = (day) => {
-    setShowEndTimePicker(true);
-  };
+	const formatTime = (date) => {
+		if (!date) return '--:--';
+		const hours = date.getHours().toString().padStart(2, '0');
+		const minutes = date.getMinutes().toString().padStart(2, '0');
+		return `${hours}:${minutes}`;
+	}
 
 	return (
 		<FullView>
@@ -86,54 +86,51 @@ function Register3({}) {
 					))}
 				</WorkDayContainer>
 
+				<SubText style={{ marginTop: 40 }}>
+					근무 시간(시작 시간~종료 시간)
+				</SubText>
 				{selectedDays.map((day, index) => (
 					<DayTimeContainer key={index}>
-						<DayText>{day}</DayText>
+						<View style={{flexDirection: 'row', justifyContent: 'space-between', width: 300, alignSelf: 'center' }}>
+						<WorkTimeText style={{marginRight: 5, fontSize: 15}}>{day}</WorkTimeText>
 						<TimePickerContainer>
 							<WorkTimeRow>
-								<TimePickerLabel>시작 시간</TimePickerLabel>
-								<WorkTime onPress={() => showStartTimepicker(day)} selected={selectedStartTimes[day] !== null}>
-									<WorkTimeInputBox
-										placeholder={'--:--'}
-										editable={false}
-										value={selectedStartTimes[day] ? selectedStartTimes[day].toLocaleTimeString() : ''}
-									/>
-
-									{showStartTimePicker && (
-										<DateTimePicker
-											testID="timePicker"
-											value={selectedStartTimes[day] || new Date()}
-											mode="time"
-											is24Hour={true}
-											display="default"
-											onChange={(event, selectedDate) => handleStartTimeChange(event, selectedDate, day)}
-										/>
-									)}
+								<WorkTime
+									onPress={() => showTimepicker(day, true)}
+									selected={!!selectedStartTimes[day]}
+								>
+									<WorkTimeText>
+										{formatTime(selectedStartTimes[day])}
+									</WorkTimeText>
 								</WorkTime>
-							</WorkTimeRow>
+								</WorkTimeRow>
+								<WorkTimeText style={{alignSelf: 'center'}}>~</WorkTimeText>
 							<WorkTimeRow>
-								<TimePickerLabel>종료 시간</TimePickerLabel>
-								<WorkTime onPress={() => showEndTimepicker(day)} selected={selectedEndTimes[day] !== null}>
-									<WorkTimeInputBox
-										placeholder={selectedEndTimes[day] ? selectedEndTimes[day].toLocaleTimeString() : '--:--'}
-										editable={false}
-									/>
-									{showEndTimePicker && (
-										<DateTimePicker
-											testID="timePicker"
-											value={selectedEndTimes[day] || new Date()}
-											mode="time"
-											is24Hour={true}
-											display="default"
-											onChange={(event, selectedDate) => handleEndTimeChange(event, selectedDate, day)}
-										/>
-									)}
+								<WorkTime
+									onPress={() => showTimepicker(day, false)}
+									selected={!!selectedEndTimes[day]}
+								>
+									<WorkTimeText>
+										{formatTime(selectedEndTimes[day])}
+									</WorkTimeText>
 								</WorkTime>
 							</WorkTimeRow>
 						</TimePickerContainer>
+						</View>
 					</DayTimeContainer>
 				))}
 			</MainView>
+
+			{currentDay && (
+				<DateTimePicker
+					testID="timePicker"
+					value={new Date()}
+					mode="time"
+					is24Hour={true}
+					display="default"
+					onChange={handleTimeChange}
+				/>
+			)}
 
 			<View
 				style={{
@@ -158,120 +155,109 @@ function Register3({}) {
 }
 
 const FullView = styled.View`
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  align-self: center;
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	align-self: center;
 `;
 
 const MainView = styled(FullView)`
-  width: 80%;
-  height: auto;
+	width: 80%;
+	height: auto;
 `;
 
 const MainText = styled.Text`
-  font-size: 15px;
-  font-weight: bold;
-  color: ${(props) => props.color || 'black'};
+	font-size: 15px;
+	font-weight: bold;
+	color: ${(props) => props.color || 'black'};
 `;
 
 const Bar = styled.View`
-  width: 100%;
-  height: 1.5px;
-  background-color: ${(props) => props.style?.backgroundColor || '#D9D9D9'};
-  margin-top: 20px;
+	width: 100%;
+	height: 1.5px;
+	background-color: ${(props) => props.style?.backgroundColor || '#D9D9D9'};
+	margin-top: 20px;
 `;
 
 const ResultButton = styled.TouchableOpacity`
-  width: 100%;
-  height: 70px;
-  background-color: #0066ff;
-  position: absolute;
-  bottom: 0px;
-  justify-content: center;
-  align-items: center;
+	width: 100%;
+	height: 70px;
+	background-color: #0066ff;
+	position: absolute;
+	bottom: 0px;
+	justify-content: center;
+	align-items: center;
 `;
 
 const ResultButtonText = styled.Text`
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
 `;
 
 const ResultCircle = styled.View`
-  width: 5px;
-  height: 5px;
-  margin: 2px;
-  background-color: ${(props) => props.color || '#D9D9D9'};
-  border-radius: 100px;
+	width: 5px;
+	height: 5px;
+	margin: 2px;
+	background-color: ${(props) => props.color || '#D9D9D9'};
+	border-radius: 100px;
 `;
 
 const SubText = styled.Text`
-  font-size: 12px;
-  font-weight: bold;
-  color: ${(props) => (props.selected ? 'white' : '#3E3E3E')};
+	font-size: 12px;
+	font-weight: bold;
+	color: ${(props) => (props.selected ? 'white' : '#3E3E3E')};
 `;
 
 const WorkDayContainer = styled.View`
-  width: 300px;
-  height: auto;
-  flex-direction: row;
-  align-self: center;
-  justify-content: space-between;
+	width: 300px;
+	height: auto;
+	flex-direction: row;
+	align-self: center;
+	justify-content: space-between;
 `;
 
 const WorkDay = styled.TouchableOpacity`
-  width: 38px;
-  height: 38px;
-  border-radius: 100px;
-  background-color: ${(props) => (props.selected ? '#0066ff' : 'white')};
-  align-items: center;
-  justify-content: center;
-  border: ${(props) => (props.selected ? 'none' : '1px solid #0066ff')};
-  border-color: ${(props) => (props.selected ? '#0066ff' : '#d9d9d9')};
+	width: 37px;
+	height: 37px;
+	border-radius: 100px;
+	background-color: ${(props) => (props.selected ? '#0066ff' : 'white')};
+	align-items: center;
+	justify-content: center;
+	border: ${(props) => (props.selected ? 'none' : '1px solid #0066ff')};
+	border-color: ${(props) => (props.selected ? '#0066ff' : '#d9d9d9')};
 `;
 
 const DayTimeContainer = styled.View`
-  margin-top: 20px;
-`;
-
-const DayText = styled.Text`
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 5px;
+  	margin-top: 20px;
 `;
 
 const WorkTimeRow = styled.View`
-  flex-direction: row;
-  align-items: center;
+	flex-direction: row;
+	align-items: center;
+	margin-left: 10px;
+	margin-right: 10px;
 `;
 
 const TimePickerContainer = styled.View`
-  margin-top: 5px;
-`;
-
-const TimePickerLabel = styled.Text`
-  font-size: 12px;
-  font-weight: bold;
-  margin-bottom: 5px;
+	flex-direction: row;
 `;
 
 const WorkTime = styled.TouchableOpacity`
-  width: 100px;
-  height: 25px;
-  border-radius: 15px;
-  background-color: ${(props) => (props.selected ? 'white' : '#EFEFEF')};
-  align-items: center;
-  border: 1px solid ${(props) => (props.selected ? '#0066ff' : '#EFEFEF')};
+	width: 120px;
+	height: 30px;
+	border-radius: 15px;
+	background-color: ${(props) => (props.selected ? 'white' : '#EFEFEF')};
+	align-items: center;
+	justify-content: center;
+	border: 1px solid ${(props) => (props.selected ? '#0066ff' : '#EFEFEF')};
 `;
 
-const WorkTimeInputBox = styled.TextInput`
-  color: black;
-  font-size: 10px;
-  font-weight: normal;
-  width: 100%;
-  height: 100%;
-  align-self: center;
+const WorkTimeText = styled.Text`
+	color: #3E3E3E;
+	font-size: 12px;
+	font-weight: normal;
+	text-align: center;
 `;
 
 export default Register3;
