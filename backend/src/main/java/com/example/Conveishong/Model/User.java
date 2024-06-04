@@ -36,4 +36,12 @@ public class User {
         this.kakaoId = kakaoId;
         this.kakaoEmail = kakaoEmail;
     }
+    public void updateUserInfo(String userName, String userRole, String userLocation, String userPhoneNum, String userImage, String userMoney){
+        if(userName != null) this.userName = userName;
+        if(userRole != null) this.userRole = userRole;
+        if(userLocation != null) this.userLocation = userLocation;
+        if(userPhoneNum != null) this.userPhoneNum = userPhoneNum;
+        if(userImage != null) this.userImage = userImage;
+        if(userMoney != null) this.userMoney = userMoney;
+    }
 }

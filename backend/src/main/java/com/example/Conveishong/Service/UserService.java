@@ -2,6 +2,7 @@ package com.example.Conveishong.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.example.Conveishong.Dto.UserDTO;
 import com.example.Conveishong.Model.User;
 import com.example.Conveishong.Oauth.JwtProperties;
 import com.example.Conveishong.Oauth.KakaoProfile;
@@ -38,7 +39,7 @@ public class UserService {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "authorization_code");
         params.add("client_id", "8a9dc3d4734bca30c09c31ab1527ac7d");
-        params.add("redirect_uri", "http://localhost:4000/auth");
+        params.add("redirect_uri", "http://43.200.15.190:4000/auth");
         params.add("code", code);
 
 
@@ -123,4 +124,11 @@ public class UserService {
     public User getUserInfo(Long userId){
         return userRepository.findByUserId(userId);
     }
+    public void updateUserInfo(Long userId, UserDTO userDTO){
+        User user = userRepository.findByUserId(userId);
+        user.updateUserInfo(userDTO.getUserName(), userDTO.getUserRole(), userDTO.getUserLocation(), userDTO.getUserPhoneNum(), userDTO.getUserImage(), userDTO.getUserMoney());
+        userRepository.save(user);
+    }
+
+    
 }
