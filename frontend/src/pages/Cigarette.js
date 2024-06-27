@@ -10,6 +10,7 @@ import {
 	TextInput,
 	FlatList,
 	Modal,
+	ScrollView,
 } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import styled from "styled-components/native";
@@ -24,6 +25,8 @@ const data = [
 	{ id: '5', name: '가나' },
 	{ id: '6', name: '다람쥐' },
 	{ id: '7', name: '타요' },
+	{ id: '8', name: '냠' },
+	{ id: '9', name: '바보' },
 ];
 
 const consonants = ['전체', 'ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
@@ -147,30 +150,32 @@ function Cigarette({ }) {
 						<ModalContent>
 							<ModalBar />
 							<MainText style={{ marginBottom: 20, alignSelf: 'center', marginTop: 30, color: '#909090' }}>점검사항 확인</MainText>
-							<FlatList
-								data={getModifiedItems()}
-								keyExtractor={(item) => item.id}
-								renderItem={({ item }) => (
-									<ItemContainer style={{ width: '70%', alignSelf: 'center' }}>
+							<ScrollView>
+								{getModifiedItems().map((item) => (
+									<ItemContainer key={item.id} style={{ width: '70%', alignSelf: 'center' }}>
 										<SubText style={{ fontWeight: 'bold', fontSize: 12 }}>{item.name}</SubText>
 										<SubText style={{ color: '#0066FF', fontWeight: 'bold', fontSize: 12 }}>
 											{item.count > 0 ? `+${item.count}` : item.count}
 										</SubText>
 									</ItemContainer>
-								)}
-							/>
-							<CompleteButton onPress={() => {
-								setModalVisible(false);
-								navigation.navigate('Inspection');
-							}}>
-								<MainText style={{ color: 'white' }}>완료</MainText>
-							</CompleteButton>
+								))}
+							</ScrollView>
+							<View style={{ alignItems: 'center', marginTop: 80 }}>
+								<CompleteButton onPress={() => {
+									setModalVisible(false);
+									navigation.navigate('Inspection');
+								}}>
+									<MainText style={{ color: 'white' }}>완료</MainText>
+								</CompleteButton>
+							</View>
 						</ModalContent>
 					</ModalView>
 				</Modal>
 			</MainView>
 
-			<CompleteButton onPress={() => setModalVisible(true)}>
+			<CompleteButton style={{ position: 'absolute', bottom: 30 }}
+				onPress={() => setModalVisible(true)}
+			>
 				<MainText style={{ color: 'white' }}>완료</MainText>
 			</CompleteButton>
 		</FullView>
@@ -276,9 +281,9 @@ const CompleteButton = styled.TouchableOpacity`
 	border-radius: 15px;
 	align-items: center;
 	justify-content: center;
+	align-self: center;
 	position: absolute;
 	bottom: 30px;
-	align-self: center;
 `;
 
 const ModalView = styled.View`
@@ -305,6 +310,6 @@ const ModalBar = styled.TouchableOpacity`
 	border-radius: 100px;
 	align-self: center;
 	margin-top: 15px;
-`
+`;
 
 export default Cigarette;
