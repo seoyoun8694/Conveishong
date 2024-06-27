@@ -7,9 +7,11 @@ import {
 	View,
 	TouchableOpacity,
 	Text,
+	Image,
 } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import styled from "styled-components/native";
+import { launchImageLibrary } from 'react-native-image-picker';
 
 import images from '../components/imgaes';
 import { TextInput } from 'react-native-gesture-handler';
@@ -19,6 +21,16 @@ function Register4({ }) {
 
 	const [UserName, setUserName] = useState(null);
 	const [UserPhoneNum, setUserPhoneNum] = useState(null);
+	const [profileImage, setProfileImage] = useState(null);
+
+	const pickImage = () => {
+		launchImageLibrary({ mediaType: 'photo' }, (response) => {
+			if (response.assets && response.assets.length > 0) {
+				const selectedImage = response.assets[0].uri;
+				setProfileImage(selectedImage);
+			}
+		});
+	};
 
 	return (
 		<FullView>
@@ -33,8 +45,15 @@ function Register4({ }) {
 			
 			<MainView>
 				<View style={{ alignSelf: 'center', flexDirection: 'row' }}>
-					<Profile>
-						<images.User_Profile />
+					<Profile onPress={pickImage}>
+						{profileImage ? (
+							<Image 
+								source={{ uri: profileImage }} 
+								style={{ width: 200, height: 200, borderRadius: 100 }} 
+							/>
+						) : (
+							<images.User_Profile />
+						)}
 					</Profile>
 				</View>
 

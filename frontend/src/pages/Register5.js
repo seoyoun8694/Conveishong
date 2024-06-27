@@ -23,7 +23,7 @@ function Register5({ }) {
 				<PartTime_Img />
 				<View style={{marginTop: 10, padding: 5, alignItems: 'center'}}>
 					<MainText style={{ color: '#0066FF', fontSize: 12 }}>{user_position}</MainText>
-					<MainText style={{ fontSize: 20 }}>{user_name}</MainText>
+					<MainText style={{ fontSize: 18 }}>{user_name}</MainText>
 					<Text style={{ fontSize: 12, marginTop: 10 }}>{user_location}</Text>
 				</View>
 				<View style={{ position: 'absolute', bottom: 40, alignItems: 'center' }}>
@@ -49,16 +49,6 @@ const GradientBackground = styled(LinearGradient)`
 	align-items: center;
 `;
 
-const MainView = styled.View`
-	width: 80%;
-	height: auto;
-	background-color: white;
-	padding: 20px;
-	border-radius: 10px;
-	justify-content: center;
-	align-items: center;
-`;
-
 const MainText = styled.Text`
     font-size: 15px;
     font-weight: bold;
@@ -76,7 +66,7 @@ const ResultButton = styled.TouchableOpacity`
 
 const ResultButtonText = styled.Text`
 	color: #0066FF;
-	font-size: 20px;
+	font-size: 18px;
 	font-weight: bold;
 `;
 

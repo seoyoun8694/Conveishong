@@ -13,6 +13,11 @@ import User_Profile from '../assets/User_Profile.svg';
 import Card_Register from '../assets/Card_Register.svg';
 import PartTIme_Work from '../assets/PartTIme_Work.svg';
 
+import chatting from '../assets/chatting.svg';
+import menu from '../assets/menu.svg';
+import location from '../assets/location.svg';
+import Card_Work from '../assets/Card_Work';
+
 export const images = {
 	Back_icon: Back_icon,
 	Register_PT: Register_PT,
@@ -25,6 +30,11 @@ export const images = {
 	User_Profile: User_Profile,
 	Card_Register: Card_Register,
 	PartTIme_Work: PartTIme_Work,
+
+	chatting: chatting,
+	menu: menu,
+	location: location,
+	Card_Work: Card_Work,
 };
 
 export default images;
