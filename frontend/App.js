@@ -14,6 +14,9 @@ import Register5 from "./src/pages/Register5";
 
 import Work from "./src/pages/Work";
 import Inspection from "./src/pages/Inspection";
+import Cigarette from "./src/pages/Cigarette";
+import Money from "./src/pages/Money";
+import GiftCard from "./src/pages/GiftCard";
 
 const Stack = createStackNavigator();
 
@@ -30,6 +33,9 @@ export default function App() {
 
 				<Stack.Screen name="Work" component={Work} />
 				<Stack.Screen name="Inspection" component={Inspection} />
+				<Stack.Screen name="Cigarette" component={Cigarette} />
+				<Stack.Screen name="Money" component={Money} />
+				<Stack.Screen name="GiftCard" component={GiftCard} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

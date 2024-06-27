@@ -53,15 +53,15 @@ function Inspection({ }) {
 						<InfoText style={{ marginTop: 22, marginLeft: 10 }}>시재 점검할 항목을 선택해주세요</InfoText>
 					</View>
 					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-						<Inspec_Box style={{marginRight: 15}}>
+						<Inspec_Box style={{marginRight: 15}} onPress={() => navigation.navigate('Cigarette')}>
 							<images.cigarette />
 							<SubText style={{marginTop: 5}}>담배</SubText>
 						</Inspec_Box>
-						<Inspec_Box style={{marginRight: 15}}>
+						<Inspec_Box style={{marginRight: 15}} onPress={() => navigation.navigate('Money')}>
 							<images.money />
 							<SubText style={{marginTop: 5}}>현금</SubText>
 						</Inspec_Box>
-						<Inspec_Box>
+						<Inspec_Box onPress={() => navigation.navigate('GiftCard')}>
 							<images.giftcard />
 							<SubText style={{marginTop: 5}}>문화상품권</SubText>
 						</Inspec_Box>
