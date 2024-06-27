@@ -13,33 +13,13 @@ import styled from "styled-components/native";
 
 import images from '../components/imgaes';
 
-function Work1({ }) {
+function Inspection({ }) {
 	const navigation = useNavigation();
 	const user_name = '홍길동';
 	const user_position = '알바생';
 	const user_location = 'GS25테크노파크점';
 	const today = new Date();
 	const formattedDate = `${today.getMonth() + 1}월 ${today.getDate()}일`;
-
-	const [isWorking, setIsWorking] = useState(false);
-	const [workTime, setWorkTime] = useState('');
-
-	useEffect(() => {
-		const now = new Date();
-		const hours = now.getHours();
-		const minutes = now.getMinutes();
-		const formattedTime = `${now.getMonth() + 1}월 ${now.getDate()}일 ${hours >= 12 ? '오후' : '오전'} ${hours % 12 || 12}:${minutes < 10 ? '0' + minutes : minutes}`;
-		setWorkTime(formattedTime);
-	}, []);
-
-	const handleWork = () => {
-		const now = new Date();
-		const hours = now.getHours();
-		const minutes = now.getMinutes();
-		const formattedTime = `${now.getMonth() + 1}월 ${now.getDate()}일 ${hours >= 12 ? '오후' : '오전'} ${hours % 12 || 12}:${minutes < 10 ? '0' + minutes : minutes}`;
-		setWorkTime(formattedTime);
-		setIsWorking(true);
-	};
 
 	return (
 		<FullView>
@@ -61,28 +41,45 @@ function Work1({ }) {
 				</View>
 			</MainView>
 			<MainBox>
-				<View style={{ flexDirection: 'row', marginTop: 30, justifyContent: 'space-between' }}>
-					<View style={{alignItems: 'center', marginLeft: 75}}>
-						<MainText style={{ color: '#0066FF', fontSize: 15 }}>출근하기</MainText>
-						<Bar />
-					</View>
-					<MainText style={{ color: '#909090', fontSize: 15, marginRight: 75 }}>시재점검</MainText>
+				<View style={{ flexDirection: 'row', marginTop: 30, width: 230, justifyContent: 'space-between', alignSelf: 'center' }}>
+					<MainText style={{ color: '#909090', fontSize: 15 }} onPress={() => navigation.navigate('Work')}>출근하기</MainText>
+					<MainText style={{ color: '#0066FF', fontSize: 15 }}>시재점검</MainText>
 				</View>
+				<Bar style={{ marginRight: 50, alignSelf: 'flex-end' }} />
+				
+				<View style={{ width: 300, alignSelf: 'center' }}>
+					<View style={{flexDirection: 'row'}}>
+						<SubText style={{ marginTop: 20 }}>시재 점검 목록</SubText>
+						<InfoText style={{ marginTop: 22, marginLeft: 10 }}>시재 점검할 항목을 선택해주세요</InfoText>
+					</View>
+					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+						<Inspec_Box style={{marginRight: 15}}>
+							<images.cigarette />
+							<SubText style={{marginTop: 5}}>담배</SubText>
+						</Inspec_Box>
+						<Inspec_Box style={{marginRight: 15}}>
+							<images.money />
+							<SubText style={{marginTop: 5}}>현금</SubText>
+						</Inspec_Box>
+						<Inspec_Box>
+							<images.giftcard />
+							<SubText style={{marginTop: 5}}>문화상품권</SubText>
+						</Inspec_Box>
+					</View>
 
-				<View style={{alignItems: 'center' }}>
-					<images.Card_Work style={{ elevation: 10, position: 'absolute', }} />
-					<View style={{ top: 140, alignItems: 'center' }}>
-						<images.PartTIme_Work  />
-						<SubText style={{ color: '#0066FF', marginTop: 15 }}>{user_position}</SubText>
-						<MainText style={{ color: 'black' }}>{user_name}</MainText>
-						<WorkBox onPress={handleWork} isWorking={isWorking}>
-							<MainText style={{ color: isWorking ? 'white' : '#0066FF' }}>
-								{isWorking ? '출근 완료' : '출근하기'}
-							</MainText>
-							<SubText style={{ color: '#D9D9D9', fontSize: 10, marginTop: 5 }}>{workTime}</SubText>
-						</WorkBox>
+					<View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
+						<View style={{flexDirection: 'row'}}>
+							<SubText style={{ marginTop: 40 }}>시재 기록</SubText>
+							<InfoText style={{ marginTop: 42, marginLeft: 10 }}>최대 30일 보관</InfoText>
+						</View>
+						<InfoText style={{ marginTop: 42, color: '#0066FF' }}>전체보기</InfoText>
 					</View>
+					<Inspec_his>
+						<Text>시재 기록</Text>
+					</Inspec_his>
+				
 				</View>
+				
 			</MainBox>
 		</FullView>
 	);
@@ -109,6 +106,14 @@ const MainText = styled.Text`
 
 const SubText = styled.Text`
 	font-size: 12px;
+	color: black;
+	font-weight: bold;
+`;
+
+const InfoText = styled.Text`
+	font-size: 10px;
+	color: #909090;
+	font-weight: normal;
 `;
 
 const MainBox = styled.TouchableOpacity`
@@ -140,15 +145,23 @@ const Bar = styled.TouchableOpacity`
 	margin-top: 8px;
 `;
 
-const WorkBox = styled.TouchableOpacity`
-	width: 180px;
-	height: 70px;
+const Inspec_Box = styled.TouchableOpacity`
+	width: 90px;
+	height: 90px;
+	background-color: #F3F3F3;
 	border-radius: 15px;
-	background-color: ${props => props.isWorking ? '#0066FF' : 'white'};
-	border: 1px solid #0066FF;
 	margin-top: 10px;
-	justify-content: center;
 	align-items: center;
+	justify-content: center;
 `;
 
-export default Work1;
+const Inspec_his = styled.TouchableOpacity`
+	width: 300px;
+	height: 200px;
+	background-color: #F3F3F3;
+	border-radius: 15px;
+	align-self: center;
+	margin-top: 10px;
+`;
+
+export default Inspection;

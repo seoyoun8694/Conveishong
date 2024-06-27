@@ -18,6 +18,11 @@ import menu from '../assets/menu.svg';
 import location from '../assets/location.svg';
 import Card_Work from '../assets/Card_Work';
 
+import cigarette from '../assets/cigarette.svg';
+import money from '../assets/money.svg';
+import giftcard from '../assets/giftcard.svg';
+
+
 export const images = {
 	Back_icon: Back_icon,
 	Register_PT: Register_PT,
@@ -35,6 +40,10 @@ export const images = {
 	menu: menu,
 	location: location,
 	Card_Work: Card_Work,
+
+	cigarette: cigarette,
+	money: money,
+	giftcard: giftcard,
 };
 
 export default images;

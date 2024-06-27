@@ -12,7 +12,8 @@ import Register3 from "./src/pages/Register3";
 import Register4 from "./src/pages/Register4";
 import Register5 from "./src/pages/Register5";
 
-import Work1 from "./src/pages/Work1";
+import Work from "./src/pages/Work";
+import Inspection from "./src/pages/Inspection";
 
 const Stack = createStackNavigator();
 
@@ -27,7 +28,8 @@ export default function App() {
 				<Stack.Screen name="Register4" component={Register4} />
 				<Stack.Screen name="Register5" component={Register5} />
 
-				<Stack.Screen name="Work1" component={Work1} />
+				<Stack.Screen name="Work" component={Work} />
+				<Stack.Screen name="Inspection" component={Inspection} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
