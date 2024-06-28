@@ -12,6 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 import styled from "styled-components/native";
 
 import images from '../components/imgaes';
+import CustomModal from '../components/CustomModal';
 
 function Inspection({ }) {
 	const navigation = useNavigation();
@@ -21,11 +22,15 @@ function Inspection({ }) {
 	const today = new Date();
 	const formattedDate = `${today.getMonth() + 1}월 ${today.getDate()}일`;
 
+	const [modalVisible, setModalVisible] = useState(false);
+
 	return (
 		<FullView>
 			<MainView>
 				<View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 30 }}>
-					<images.menu />
+				<TouchableOpacity onPress={() => setModalVisible(true)}>
+						<images.menu color={'white'} />
+					</TouchableOpacity>
 					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 						<images.location />
 						<MainText style={{ fontSize: 10, marginLeft: 5, fontWeight: 'normal' }}>{user_location}</MainText>
@@ -81,6 +86,12 @@ function Inspection({ }) {
 				</View>
 				
 			</MainBox>
+
+			<CustomModal
+				visible={modalVisible}
+				onClose={() => setModalVisible(false)}
+				navigation={navigation}
+			/>
 		</FullView>
 	);
 }
