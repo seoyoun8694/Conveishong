@@ -22,6 +22,11 @@ import cigarette from '../assets/cigarette.svg';
 import money from '../assets/money.svg';
 import giftcard from '../assets/giftcard.svg';
 
+import setting from '../assets/setting.svg';
+import coin from '../assets/coin.svg';
+import calendar_left from '../assets/calendar_left.svg';
+import calendar_right from '../assets/calendar_right.svg';
+
 
 export const images = {
 	Back_icon: Back_icon,
@@ -44,6 +49,11 @@ export const images = {
 	cigarette: cigarette,
 	money: money,
 	giftcard: giftcard,
+
+	setting: setting,
+	coin: coin,
+	calendar_left: calendar_left,
+	calendar_right: calendar_right,
 };
 
 export default images;

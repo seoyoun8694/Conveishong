@@ -69,13 +69,13 @@ function Money({ }) {
 	return (
 		<FullView>
 			<MainView>
-				<View style={{ flexDirection: 'row', marginTop: 30, alignItems: 'center' }}>
-					<images.Back_icon onPress={() => navigation.goBack()} />
-					<LocationBox style={{ marginLeft: 75 }}>
-						<images.location width={12} hight={12} />
-						<SubText style={{ color: 'white', marginLeft: 5 }}>{user_location}</SubText>
-					</LocationBox>
+				<View style={{ flexDirection: 'row', marginTop: 30, position: 'absolute' }}>
+					<images.Back_icon color={'#D9D9D9'} onPress={() => navigation.goBack()} />
 				</View>
+				<LocationBox style={{ alignSelf: 'center', marginTop: 30 }}>
+					<images.location width={12} hight={12} />
+					<SubText style={{ color: 'white', marginLeft: 5 }}>{user_location}</SubText>
+				</LocationBox>
 
 				<FlatList style={{ marginTop: 20 }}
 					data={denominations}
@@ -118,18 +118,18 @@ function Money({ }) {
 									</ItemContainer>
 								))}
 							</ScrollView>
-							<View style={{ alignItems: 'center', marginTop: 10}}>
+							<View style={{ alignItems: 'center', marginTop: 10 }}>
 								<MainText style={{ color: '#909090', marginBottom: 5 }}>총 시재 금액</MainText>
 								<MainText style={{ fontSize: 25 }}>{formatCurrency(totalMoney)} 원</MainText>
 							</View>
 							<View style={{ alignItems: 'center', marginTop: 20 }}>
-							<CompleteButton
-								style={{ marginBottom: 30 }}
-								onPress={() => {
-									setModalVisible(false);
-									navigation.navigate('Inspection');
-								}}>
-								<MainText style={{ color: 'white' }}>완료</MainText>
+								<CompleteButton
+									style={{ marginBottom: 30 }}
+									onPress={() => {
+										setModalVisible(false);
+										navigation.navigate('Inspection');
+									}}>
+									<MainText style={{ color: 'white' }}>완료</MainText>
 								</CompleteButton>
 							</View>
 						</ModalContent>

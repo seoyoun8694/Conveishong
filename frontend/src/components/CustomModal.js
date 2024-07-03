@@ -1,23 +1,29 @@
 import React from 'react';
-import { Modal, View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
+import Modal from 'react-native-modal';
 import images from '../components/imgaes';
 
 function CustomModal({ visible, onClose, navigation }) {
 	return (
 		<Modal
-			animationType="slide"
+			isVisible={visible}
+			swipeDirection="left"
+			animationIn="slideInLeft"
+			animationOut="slideOutLeft"
 			transparent={true}
-			visible={visible}
 			onRequestClose={onClose}
+			style={{ margin: 0 }}
 		>
 			<CenteredView>
 				<ModalView>
 					<View style={{ flexDirection: 'row' }}>
-						<images.menu color={'#0066FF'} style={{marginRight: 15}} onPress={onClose} />
+						<TouchableOpacity onPress={onClose}>
+							<images.menu color={'#0066FF'} style={{ marginRight: 15 }} />
+						</TouchableOpacity>
 						<MenuText style={{ color: '#0066FF', marginBottom: 30 }}>MENU</MenuText>
 					</View>
-					
+
 					<MenuItem onPress={() => { navigation.navigate('Setting'); onClose(); }}>
 						<MenuText>회원 정보 수정</MenuText>
 					</MenuItem>
@@ -66,7 +72,7 @@ const MenuItem = styled.TouchableOpacity`
 `;
 
 const MenuText = styled.Text`
-  	font-size: 12px;
+	font-size: 12px;
 	color: black;
 	font-weight: bold;
 `;

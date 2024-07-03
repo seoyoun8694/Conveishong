@@ -37,6 +37,7 @@ function Register4({ }) {
 			<images.Back_icon
 				style={{ marginTop: 30, marginLeft: 20 }}
 				onPress={() => navigation.goBack()}
+				color={'#D9D9D9'}
 			/>
 			<View style={{ flexDirection: 'row' }}>
 				<Bar style={{ backgroundColor: '#0066FF', width: '80%' }} />

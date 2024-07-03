@@ -91,13 +91,13 @@ function Cigarette({ }) {
 	return (
 		<FullView>
 			<MainView>
-				<View style={{ flexDirection: 'row', marginTop: 30, alignItems: 'center' }}>
-					<images.Back_icon onPress={() => navigation.goBack()} />
-					<LocationBox style={{ marginLeft: 75 }}>
-						<images.location width={12} hight={12} />
-						<SubText style={{ color: 'white', marginLeft: 5 }}>{user_location}</SubText>
-					</LocationBox>
+			<View style={{ flexDirection: 'row', marginTop: 30, position: 'absolute' }}>
+					<images.Back_icon color={'#D9D9D9'} onPress={() => navigation.goBack()} />
 				</View>
+				<LocationBox style={{ alignSelf: 'center', marginTop: 30 }}>
+					<images.location width={12} hight={12} />
+					<SubText style={{ color: 'white', marginLeft: 5 }}>{user_location}</SubText>
+				</LocationBox>
 
 				<SerchBox>
 					<images.search style={{ marginLeft: 60, marginTop: 12 }} />

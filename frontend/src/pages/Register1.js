@@ -15,6 +15,8 @@ import styled from "styled-components/native";
 import images from '../components/imgaes';
 function Register1({}) {
 	const navigation = useNavigation();
+	const user_id = '1';
+
 	const [selected, setSelected] = useState('partTime');
 
 	const handleImageClick = (type) => {
@@ -26,6 +28,7 @@ function Register1({}) {
 			<images.Back_icon
 				style={{ marginTop: 30, marginLeft: 20 }}
 				onPress={() => navigation.goBack()}
+				color={'#D9D9D9'}
 			/>
 			<View style={{ flexDirection: 'row' }}>
 				<Bar style={{ backgroundColor: '#0066FF', width: '20%' }} />
