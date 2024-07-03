@@ -15,7 +15,8 @@ public class Work {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long workId;
     private String workDay;
-    private String workTime;
+    private String workStartTime;
+    private String workEndTime;
     private Long userId;
 
 }
