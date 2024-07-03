@@ -36,7 +36,7 @@ public class WorkController {
             List<Work> workTimes = workService.getUserWorkTimes(userIdLong);
 
             if (workTimes.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 사용자의 근무 시간 정보가 없습니다.");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 유저의 근무시간 정보가 없어요!");
             }
 
             List<WorkDTO> workDTOs = workTimes.stream()
@@ -45,9 +45,9 @@ public class WorkController {
 
             return ResponseEntity.ok(workDTOs);
         } catch (NumberFormatException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("유효하지 않은 사용자 ID 형식입니다.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("아이디를 Int값으로 넣어주세요!");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류가 발생했습니다.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("근무 시간 정보 취득 실패!");
         }
     }
     private WorkDTO convertToDTO(Work work) {
