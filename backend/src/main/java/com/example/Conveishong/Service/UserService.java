@@ -124,10 +124,30 @@ public class UserService {
     public User getUserInfo(Long userId){
         return userRepository.findByUserId(userId);
     }
-    public void updateUserInfo(Long userId, UserDTO userDTO){
-        User user = userRepository.findByUserId(userId);
-        user.updateUserInfo(userDTO.getUserName(), userDTO.getUserRole(), userDTO.getUserLocation(), userDTO.getUserPhoneNum(), userDTO.getUserImage(), userDTO.getUserMoney());
-        userRepository.save(user);
+    public UserDTO updateUserInfo(Long userId, UserDTO userDTO){
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (userDTO.getUserName() != null) user.setUserName(userDTO.getUserName());
+        if (userDTO.getUserRole() != null) user.setUserRole(userDTO.getUserRole());
+        if (userDTO.getUserLocation() != null) user.setUserLocation(userDTO.getUserLocation());
+        if (userDTO.getUserPhoneNum() != null) user.setUserPhoneNum(userDTO.getUserPhoneNum());
+        if (userDTO.getUserImage() != null) user.setUserImage(userDTO.getUserImage());
+        if (userDTO.getUserMoney() != null) user.setUserMoney(userDTO.getUserMoney());
+
+        User updatedUser = userRepository.save(user);
+        return convertToDTO(updatedUser);
+    }
+    private UserDTO convertToDTO(User user) {
+        UserDTO dto = new UserDTO();
+        dto.setUserId(user.getUserId());
+        dto.setUserName(user.getUserName());
+        dto.setUserRole(user.getUserRole());
+        dto.setUserLocation(user.getUserLocation());
+        dto.setUserPhoneNum(user.getUserPhoneNum());
+        dto.setUserImage(user.getUserImage());
+        dto.setUserMoney(user.getUserMoney());
+        return dto;
     }
 
     
