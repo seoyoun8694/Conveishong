@@ -17,7 +17,7 @@ public class UserController {
     private UserService userService;
     @Autowired
     private UserRepository userRepository;
-    @RequestMapping(value = "/auth", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/api/v1/auth", method = {RequestMethod.GET, RequestMethod.POST})
     public RedirectView getLoginNative(@RequestParam String code) throws JsonProcessingException {
         // 넘어온 인가 코드를 통해 access_token 발급
         OauthToken oauthToken = userService.getAccessToken(code);
