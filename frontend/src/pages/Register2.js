@@ -6,6 +6,7 @@ import {
 } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import styled from "styled-components/native";
+import axios from 'axios';
 
 import images from '../components/imgaes';
 
@@ -22,11 +23,34 @@ const locationList = [
 
 function Register2({ }) {
 	const navigation = useNavigation();
+	const user_id = '1';
 	const [workLocation, setworkLocation] = useState(null);
 	const [selectedLocation, setSelectedLocation] = useState(null);
 
 	const handleLocationClick = (index) => {
 		setSelectedLocation(index === selectedLocation ? null : index);
+	};
+
+	const updateUserLocation = async () => {
+		if (selectedLocation === null) {
+			Alert.alert('알림', '근무지를 선택해주세요.');
+			return;
+		}
+	
+		try {
+			const response = await axios.post(`http://43.200.15.190:4000/api/v1/updateUserInfo/${user_id}`, {
+				userLocation: locationList[selectedLocation].name
+			});
+		  
+			if (response.status === 200) {
+				navigation.navigate('Register3');
+			} else {
+				Alert.alert('오류', '근무지 업데이트에 실패했습니다.');
+			}
+		} catch (error) {
+			console.error('Error updating user location:', error);
+			Alert.alert('오류', '서버와의 통신 중 문제가 발생했습니다.');
+		}
 	};
 
 	return (
@@ -75,7 +99,7 @@ function Register2({ }) {
 				<ResultCircle />
 			</View>
 
-			<ResultButton onPress={() => navigation.navigate('Register3')}>
+			<ResultButton onPress={updateUserLocation}>
 				<ResultButtonText>다음</ResultButtonText>
 			</ResultButton>
 		</FullView>

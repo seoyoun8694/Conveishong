@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import axios from 'axios';
 
 import images from '../components/imgaes';
 
 function Register3({}) {
 	const navigation = useNavigation();
+	const user_id = '1';
+
 	const [selectedDays, setSelectedDays] = useState([]);
 	const [selectedStartTimes, setSelectedStartTimes] = useState({});
 	const [selectedEndTimes, setSelectedEndTimes] = useState({});
@@ -50,11 +53,39 @@ function Register3({}) {
 	};
 
 	const formatTime = (date) => {
-		if (!date) return '--:--';
+		if (!date) return '';
 		const hours = date.getHours().toString().padStart(2, '0');
 		const minutes = date.getMinutes().toString().padStart(2, '0');
 		return `${hours}:${minutes}`;
-	}
+	};
+
+	const sendDataToServer = async () => {
+		try {
+			const workTimesData = selectedDays.map(day => ({
+				userId: parseInt(user_id),
+				workDay: day,
+				workStartTime: selectedStartTimes[day] ? formatTime(selectedStartTimes[day]) : null,
+				workEndTime: selectedEndTimes[day] ? formatTime(selectedEndTimes[day]) : null,
+			}));
+
+			for (const workTime of workTimesData) {
+				const response = await axios.post(`http://43.200.15.190:4000/api/v1/createWorkTime/${user_id}`, workTime, {
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				});
+
+				if (response.status !== 200) {
+					throw new Error(`근무 시간 업데이트에 실패했습니다. (status: ${response.status})`);
+				}
+			}
+
+			navigation.navigate('Register4');
+		} catch (error) {
+			console.error('Error sending data to server:', error.response ? error.response.data : error.message);
+			Alert.alert('오류', '근무 시간 저장 중 오류가 발생했습니다.');
+		}
+	};
 
 	return (
 		<FullView>
@@ -92,31 +123,31 @@ function Register3({}) {
 				</SubText>
 				{selectedDays.map((day, index) => (
 					<DayTimeContainer key={index}>
-						<View style={{flexDirection: 'row', justifyContent: 'space-between', width: 300, alignSelf: 'center' }}>
-						<WorkTimeText style={{marginRight: 5, fontSize: 15}}>{day}</WorkTimeText>
-						<TimePickerContainer>
-							<WorkTimeRow>
-								<WorkTime
-									onPress={() => showTimepicker(day, true)}
-									selected={!!selectedStartTimes[day]}
-								>
-									<WorkTimeText>
-										{formatTime(selectedStartTimes[day])}
-									</WorkTimeText>
-								</WorkTime>
+						<View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 300, alignSelf: 'center' }}>
+							<WorkTimeText style={{ marginRight: 5, fontSize: 15 }}>{day}</WorkTimeText>
+							<TimePickerContainer>
+								<WorkTimeRow>
+									<WorkTime
+										onPress={() => showTimepicker(day, true)}
+										selected={!!selectedStartTimes[day]}
+									>
+										<WorkTimeText>
+											{formatTime(selectedStartTimes[day])}
+										</WorkTimeText>
+									</WorkTime>
 								</WorkTimeRow>
-								<WorkTimeText style={{alignSelf: 'center'}}>~</WorkTimeText>
-							<WorkTimeRow>
-								<WorkTime
-									onPress={() => showTimepicker(day, false)}
-									selected={!!selectedEndTimes[day]}
-								>
-									<WorkTimeText>
-										{formatTime(selectedEndTimes[day])}
-									</WorkTimeText>
-								</WorkTime>
-							</WorkTimeRow>
-						</TimePickerContainer>
+								<WorkTimeText style={{ alignSelf: 'center' }}>~</WorkTimeText>
+								<WorkTimeRow>
+									<WorkTime
+										onPress={() => showTimepicker(day, false)}
+										selected={!!selectedEndTimes[day]}
+									>
+										<WorkTimeText>
+											{formatTime(selectedEndTimes[day])}
+										</WorkTimeText>
+									</WorkTime>
+								</WorkTimeRow>
+							</TimePickerContainer>
 						</View>
 					</DayTimeContainer>
 				))}
@@ -148,7 +179,7 @@ function Register3({}) {
 				<ResultCircle />
 			</View>
 
-			<ResultButton onPress={() => navigation.navigate('Register4')}>
+			<ResultButton onPress={sendDataToServer}>
 				<ResultButtonText>다음</ResultButtonText>
 			</ResultButton>
 		</FullView>

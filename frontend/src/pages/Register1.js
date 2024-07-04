@@ -11,6 +11,7 @@ import
 } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import styled from "styled-components/native";
+import axios from 'axios';
 
 import images from '../components/imgaes';
 function Register1({}) {
@@ -21,6 +22,23 @@ function Register1({}) {
 
 	const handleImageClick = (type) => {
 		setSelected(type);
+	};
+
+	const updateUserRole = async () => {
+		try {
+			const response = await axios.post(`http://43.200.15.190:4000/api/v1/updateUserInfo/${user_id}`, {
+				userRole: selected === 'partTime' ? '알바' : '점주'
+			});
+		  
+			if (response.status === 200) {
+				navigation.navigate('Register2');
+			} else {
+				Alert.alert('오류', '역할 업데이트에 실패했습니다.');
+			}
+		} catch (error) {
+			console.error('Error updating user role:', error);
+			Alert.alert('오류', '서버와의 통신 중 문제가 발생했습니다.');
+		}
 	};
 
 	return (
@@ -57,14 +75,14 @@ function Register1({}) {
 				</View>
 			</MainView>
 
-			<View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 20, position: 'absolute', bottom: 100}}>
-				<ResultCircle color={'#0066FF'} style={{width: 20}} />
+			<View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 20, position: 'absolute', bottom: 100 }}>
+				<ResultCircle color={'#0066FF'} style={{ width: 20 }} />
 				<ResultCircle />
 				<ResultCircle />
-				<ResultCircle/>
+				<ResultCircle />
 			</View>
 
-			<ResultButton onPress={() => navigation.navigate('Register2')}>
+			<ResultButton onPress={updateUserRole}>
 				<ResultButtonText>다음</ResultButtonText>
 			</ResultButton>
 		</FullView>
