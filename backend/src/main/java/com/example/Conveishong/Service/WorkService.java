@@ -1,11 +1,15 @@
 package com.example.Conveishong.Service;
 
 import com.example.Conveishong.Dto.WorkDTO;
+import com.example.Conveishong.Model.User;
 import com.example.Conveishong.Model.Work;
 import com.example.Conveishong.Repository.WorkRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -22,6 +26,9 @@ public class WorkService {
 
         Work savedWork = workRepository.save(work);
         return convertToDTO(savedWork);
+    }
+    public List<Work> getUserWorkTimes(Long userId) {
+        return workRepository.findAllByUserId(userId);
     }
 
     private WorkDTO convertToDTO(Work work) {

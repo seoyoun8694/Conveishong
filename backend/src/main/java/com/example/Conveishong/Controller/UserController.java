@@ -1,6 +1,7 @@
 package com.example.Conveishong.Controller;
 
 import com.example.Conveishong.Dto.UserDTO;
+import com.example.Conveishong.Model.User;
 import com.example.Conveishong.Oauth.OauthToken;
 import com.example.Conveishong.Repository.UserRepository;
 import com.example.Conveishong.Service.UserService;
@@ -39,6 +40,10 @@ public class UserController {
         }catch(Exception e){
             return ("유저 정보 업데이트 실패");
         }
+    }
+    @GetMapping("/api/v1/getUserInfo/{userId}")
+    public User getUserInfo(@PathVariable String userId){
+        return userService.getUserInfo(Long.valueOf(userId));
     }
 }
 
