@@ -11,10 +11,14 @@ import {
 } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import styled from "styled-components/native";
+import axios from 'axios';
+
 import images from '../components/imgaes';
 
 function Salary_Setting({}) {
 	const navigation = useNavigation();
+	const user_id = '1';
+
 	const [money, setMoney] = useState('9,860');
 
 	const handleMoneyChange = (text) => {
@@ -25,6 +29,23 @@ function Salary_Setting({}) {
 
 	const formatNumberWithCommas = (number) => {
 		return number.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	};
+
+	const updateUserMoney = async () => {
+		try {
+			const response = await axios.post(`http://43.200.15.190:4000/api/v1/updateUserInfo/${user_id}`, {
+				userMoney: money
+			});
+		  
+			if (response.status === 200) {
+				navigation.navigate('Salary');
+			} else {
+				Alert.alert('오류', '시급 업데이트에 실패했습니다.');
+			}
+		} catch (error) {
+			console.error('Error updating user location:', error);
+			Alert.alert('오류', '서버와의 통신 중 문제가 발생했습니다.');
+		}
 	};
 
 	return (
@@ -44,7 +65,7 @@ function Salary_Setting({}) {
 				/>
 			</MainView>
 
-			<CompleteButton onPress={() => {navigation.navigate('Salary')}}>
+			<CompleteButton onPress={updateUserMoney}>
 				<MainText style={{ color: 'white' }}>완료</MainText>
 			</CompleteButton>
 		</FullView>

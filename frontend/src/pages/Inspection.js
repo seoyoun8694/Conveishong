@@ -7,22 +7,51 @@ import {
 	View,
 	TouchableOpacity,
 	Text,
+	Image,
 } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import styled from "styled-components/native";
+import axios from 'axios';
 
 import images from '../components/imgaes';
 import CustomModal from '../components/CustomModal';
 
 function Inspection({ }) {
 	const navigation = useNavigation();
-	const user_name = '홍길동';
-	const user_position = '알바생';
-	const user_location = 'GS25테크노파크점';
-	const today = new Date();
-	const formattedDate = `${today.getMonth() + 1}월 ${today.getDate()}일`;
-
+	const user_id = '1';
+	
+	const [userData, setUserData] = useState({
+		userName: '',
+		userRole: '',
+		userLocation: '',
+		userImage: '',
+	});
 	const [modalVisible, setModalVisible] = useState(false);
+	const [formattedDate, setFormattedDate] = useState('');
+
+	useEffect(() => {
+		const fetchUserData = async () => {
+			try {
+				const response = await axios.get(`http://43.200.15.190:4000/api/v1/getUserInfo/${user_id}`);
+				setUserData({
+					userName: response.data.userName,
+					userRole: response.data.userRole,
+					userLocation: response.data.userLocation,
+					userImage: response.data.userImage,
+				});
+			} catch (error) {
+				console.error(error);
+			}
+		};
+
+		const days = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+		const today = new Date();
+		const dayOfWeek = days[today.getDay()];
+		const formattedDate = `${today.getMonth() + 1}월 ${today.getDate()}일 ${dayOfWeek} 입니다`;
+
+		setFormattedDate(formattedDate);
+		fetchUserData();
+	}, [user_id]);
 
 	return (
 		<FullView>
@@ -33,15 +62,19 @@ function Inspection({ }) {
 					</TouchableOpacity>
 					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 						<images.location width={12} hight={12} />
-						<MainText style={{ fontSize: 10, marginLeft: 5, fontWeight: 'normal' }}>{user_location}</MainText>
+						<MainText style={{ fontSize: 10, marginLeft: 5, fontWeight: 'normal' }}>{userData.userLocation}</MainText>
 					</View>
 					<images.chatting />
 				</View>
 
 				<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-					<MainText>반가워요, {user_name}님! {'\n'}{formattedDate} 입니다 {'\n'}오늘도 화이팅 ✨</MainText>
+					<MainText>반가워요, {userData.userName}님! {'\n'}{formattedDate}{'\n'}오늘도 화이팅 ✨</MainText>
 					<Profile>
-						<images.User_Profile width={60} hight={60} />
+						{userData.userImage ? (
+							<Image source={{ uri: userData.userImage }} style={{ width: 90, height: 90, borderRadius: 100 }} />
+						) : (
+							<images.User_Profile width={60} hight={60} />
+						)}
 					</Profile>
 				</View>
 			</MainView>

@@ -13,7 +13,7 @@ function Login({}) {
 	return (
 		<FullView>
 			<MainView>
-				<MainText>로그인 화면</MainText>
+				<MainText onPress={() => navigation.navigate('Work')}>로그인 화면</MainText>
 				<Text
 					onPress={() => navigation.navigate('Register1')}
 					style={{ fontSize: 15, alignSelf: 'center', color: '#B7BABF', margin: 15 }}

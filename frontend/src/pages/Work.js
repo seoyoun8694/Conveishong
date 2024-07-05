@@ -2,44 +2,73 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable react/self-closing-comp */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
 	View,
 	TouchableOpacity,
 	Text,
+	Image
 } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import styled from "styled-components/native";
+import axios from 'axios';
+
 
 import images from '../components/imgaes';
 import CustomModal from '../components/CustomModal';
 
 function Work({ }) {
 	const navigation = useNavigation();
-	const user_name = '홍길동';
-	const user_position = '알바생';
-	const user_location = 'GS25테크노파크점';
-	const today = new Date();
-	const formattedDate = `${today.getMonth() + 1}월 ${today.getDate()}일`;
+	const user_id = '1';
 
+	const [userData, setUserData] = useState({
+		userName: '',
+		userRole: '',
+		userLocation: '',
+		userImage: '',
+	});
 	const [isWorking, setIsWorking] = useState(false);
 	const [workTime, setWorkTime] = useState('');
 	const [modalVisible, setModalVisible] = useState(false);
+	const [formattedDate, setFormattedDate] = useState('');
+
+	const formatTime = useCallback((date) => {
+		const hours = date.getHours();
+		const minutes = date.getMinutes();
+		const formattedTime = `${date.getMonth() + 1}월 ${date.getDate()}일 ${hours >= 12 ? '오후' : '오전'} ${hours % 12 || 12}:${minutes < 10 ? '0' + minutes : minutes}`;
+		return formattedTime;
+	}, []);
 
 	useEffect(() => {
+		const fetchUserData = async () => {
+			try {
+				const response = await axios.get(`http://43.200.15.190:4000/api/v1/getUserInfo/${user_id}`);
+				setUserData({
+					userName: response.data.userName,
+					userRole: response.data.userRole,
+					userLocation: response.data.userLocation,
+					userImage: response.data.userImage,
+				});
+			} catch (error) {
+				console.error(error);
+			}
+		};
+
+		const days = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+		const today = new Date();
+		const dayOfWeek = days[today.getDay()];
+		const formattedDate = `${today.getMonth() + 1}월 ${today.getDate()}일 ${dayOfWeek} 입니다`;
+
+		setFormattedDate(formattedDate);
+		fetchUserData();
+
 		const now = new Date();
-		const hours = now.getHours();
-		const minutes = now.getMinutes();
-		const formattedTime = `${now.getMonth() + 1}월 ${now.getDate()}일 ${hours >= 12 ? '오후' : '오전'} ${hours % 12 || 12}:${minutes < 10 ? '0' + minutes : minutes}`;
-		setWorkTime(formattedTime);
-	}, []);
+		setWorkTime(formatTime(now));
+	}, [formatTime, user_id]);
 
 	const handleWork = () => {
 		const now = new Date();
-		const hours = now.getHours();
-		const minutes = now.getMinutes();
-		const formattedTime = `${now.getMonth() + 1}월 ${now.getDate()}일 ${hours >= 12 ? '오후' : '오전'} ${hours % 12 || 12}:${minutes < 10 ? '0' + minutes : minutes}`;
-		setWorkTime(formattedTime);
+		setWorkTime(formatTime(now));
 		setIsWorking(true);
 	};
 
@@ -52,15 +81,19 @@ function Work({ }) {
 					</TouchableOpacity>
 					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 						<images.location width={12} hight={12} />
-						<MainText style={{ fontSize: 10, marginLeft: 5, fontWeight: 'normal' }}>{user_location}</MainText>
+						<MainText style={{ fontSize: 10, marginLeft: 5, fontWeight: 'normal' }}>{userData.userLocation}</MainText>
 					</View>
 					<images.chatting />
 				</View>
 
 				<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-					<MainText>반가워요, {user_name}님! {'\n'}{formattedDate} 입니다 {'\n'}오늘도 화이팅 ✨</MainText>
+					<MainText>반가워요, {userData.userName}님! {'\n'}{formattedDate}{'\n'}오늘도 화이팅 ✨</MainText>
 					<Profile>
-						<images.User_Profile width={60} hight={60} />
+						{userData.userImage ? (
+							<Image source={{ uri: userData.userImage }} style={{ width: 90, height: 90, borderRadius: 100 }} />
+						) : (
+							<images.User_Profile width={60} hight={60} />
+						)}
 					</Profile>
 				</View>
 			</MainView>
@@ -75,8 +108,8 @@ function Work({ }) {
 					<images.Card_Work style={{ elevation: 10, position: 'absolute', }} />
 					<View style={{ top: 140, alignItems: 'center' }}>
 						<images.PartTIme_Work />
-						<SubText style={{ color: '#0066FF', marginTop: 15 }}>{user_position}</SubText>
-						<MainText style={{ color: 'black' }}>{user_name}</MainText>
+						<SubText style={{ color: '#0066FF', marginTop: 15 }}>{userData.userRole}</SubText>
+						<MainText style={{ color: 'black' }}>{userData.userName}</MainText>
 						<WorkBox onPress={handleWork} isWorking={isWorking}>
 							<MainText style={{ color: isWorking ? 'white' : '#0066FF' }}>
 								{isWorking ? '출근 완료' : '출근하기'}

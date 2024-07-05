@@ -236,7 +236,7 @@ const ResultCircle = styled.View`
 `;
 
 const SubText = styled.Text`
-	font-size: 12px;
+	font-size: 10px;
 	font-weight: bold;
 	color: ${(props) => (props.selected ? 'white' : '#3E3E3E')};
 `;

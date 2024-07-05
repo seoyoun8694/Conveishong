@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import {
-	View,
-	TouchableOpacity,
-	Text,
-} from "react-native";
+import { View, TouchableOpacity, Text, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styled from "styled-components/native";
 import axios from 'axios';
