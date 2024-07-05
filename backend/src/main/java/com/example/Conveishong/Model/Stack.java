@@ -1,6 +1,3 @@
-<<<<<<< Updated upstream
-package com.example.Conveishong.Model;public class Stack {
-=======
 package com.example.Conveishong.Model;
 
 import jakarta.persistence.*;
@@ -21,5 +18,4 @@ public class Stack {
     private String stackType;
     private String stackDay;
     private String userId;
->>>>>>> Stashed changes
 }

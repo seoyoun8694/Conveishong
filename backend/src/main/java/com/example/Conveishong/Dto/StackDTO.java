@@ -1,6 +1,4 @@
-<<<<<<< Updated upstream
-package com.example.Conveishong.Dto;public class StackDTO {
-=======
+
 package com.example.Conveishong.Dto;
 
 import lombok.Data;
@@ -14,5 +12,4 @@ public class StackDTO {
     private String stackType;
     private String stackDay;
     private String userId;
->>>>>>> Stashed changes
 }

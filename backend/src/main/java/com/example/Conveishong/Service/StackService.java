@@ -1,6 +1,3 @@
-<<<<<<< Updated upstream
-package com.example.Conveishong.Service;public class StackService {
-=======
 package com.example.Conveishong.Service;
 
 import com.example.Conveishong.Dto.StackDTO;
@@ -50,5 +47,4 @@ public class StackService {
         dto.setUserId(stack.getUserId());
         return dto;
     }
->>>>>>> Stashed changes
 }
