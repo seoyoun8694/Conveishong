@@ -1,6 +1,3 @@
-<<<<<<< Updated upstream
-package com.example.Conveishong.Controller;public class StackController {
-=======
 package com.example.Conveishong.Controller;
 
 import com.example.Conveishong.Dto.StackDTO;
@@ -27,5 +24,4 @@ public class StackController {
             return("시재 기록 실페!");
         }
     }
->>>>>>> Stashed changes
 }
