@@ -6,10 +6,7 @@ import com.example.Conveishong.Service.StackService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.awt.geom.RectangularShape;
 import java.util.List;
@@ -32,7 +29,7 @@ public class StackController {
         }
     }
 
-    @PostMapping("/api/v1/getStackByStackDayAndMarketId/{stackDay}/{marketId}")
+    @GetMapping("/api/v1/getStackByStackDayAndMarketId/{stackDay}/{marketId}")
     public ResponseEntity<?> getStackByStackDayAndMarketId(@PathVariable String stackDay, @PathVariable String marketId){
         try{
             List<Stack> stacks = stackService.getStackByStackDayAndMarketId(stackDay,Long.valueOf(marketId));
@@ -44,7 +41,7 @@ public class StackController {
             return ResponseEntity.ok("정보 불러오기 실패");
         }
     }
-    @PostMapping("/api/v1/getStackDayAndMarketIdAndStackType/{stackDay}/{marketId}/{stackType}")
+    @GetMapping("/api/v1/getStackDayAndMarketIdAndStackType/{stackDay}/{marketId}/{stackType}")
     public ResponseEntity<?> getStackDayAndMarketIdAndStackType(@PathVariable String stackDay, @PathVariable String marketId, @PathVariable String stackType){
         try{
             List<Stack> stacks = stackService.getByStackDayAndMarketIdAndStackType(stackDay,Long.valueOf(marketId), stackType);
