@@ -24,9 +24,15 @@ import giftcard from '../assets/giftcard.svg';
 
 import setting from '../assets/setting.svg';
 import coin from '../assets/coin.svg';
+import info from '../assets/info.svg';
+import add from '../assets/add.svg';
 import calendar_left from '../assets/calendar_left.svg';
 import calendar_right from '../assets/calendar_right.svg';
 
+import Ann_Home from '../assets/Ann_Home.png';
+import Ann_Ann from '../assets/Ann_Ann.png';
+import Ann_Info from '../assets/Ann_Info.png';
+import Ann_User from '../assets/Ann_User.png';
 
 export const images = {
 	Back_icon: Back_icon,
@@ -52,8 +58,17 @@ export const images = {
 
 	setting: setting,
 	coin: coin,
+	info: info,
+	add: add,
 	calendar_left: calendar_left,
 	calendar_right: calendar_right,
+
+	Ann_Home: Ann_Home,
+	Ann_Ann: Ann_Ann,
+	Ann_Info: Ann_Info,
+	Ann_User: Ann_User,
+
+	
 };
 
 export default images;

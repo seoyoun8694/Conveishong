@@ -14,6 +14,7 @@ import styled from "styled-components/native";
 import axios from 'axios';
 
 import images from '../components/imgaes';
+
 function Register1({}) {
 	const navigation = useNavigation();
 	const user_id = '1';
