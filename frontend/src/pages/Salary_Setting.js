@@ -104,7 +104,7 @@ const MoneyInput = styled.TextInput`
 	height: 50px;
 	background-color: #F3F3F3;
 	border-radius: 15px;
-	padding-horizontal: 15px;
+	padding: 15px;
 	font-size: 15px;
 	margin-top: 10px;
 	font-weight: bold;

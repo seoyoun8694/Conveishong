@@ -22,6 +22,8 @@ import cigarette from '../assets/cigarette.svg';
 import money from '../assets/money.svg';
 import giftcard from '../assets/giftcard.svg';
 
+import trash from '../assets/trash.svg';
+
 import setting from '../assets/setting.svg';
 import coin from '../assets/coin.svg';
 import info from '../assets/info.svg';
@@ -55,6 +57,8 @@ export const images = {
 	cigarette: cigarette,
 	money: money,
 	giftcard: giftcard,
+
+	trash: trash,
 
 	setting: setting,
 	coin: coin,

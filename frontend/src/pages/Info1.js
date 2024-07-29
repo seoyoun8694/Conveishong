@@ -20,6 +20,7 @@ import images from '../components/imgaes';
 
 function Info1({}) {
 	const navigation = useNavigation();
+	const user_location = 'GS25테크노파크점';
 	
 	const [selectedMenu, setSelectedMenu] = useState('전체');
 
@@ -30,10 +31,13 @@ function Info1({}) {
 	return (
 		<FullView>
 			<MainView>
+				<LocationBox style={{ alignSelf: 'center', marginTop: 30 }}>
+					<images.location width={12} hight={12} />
+					<SubText style={{ color: 'white', marginLeft: 5 }}>{user_location}</SubText>
+				</LocationBox>
 				<View style={{ flexDirection: 'row', marginTop: 30, position: 'absolute' }}>
 					<images.Back_icon color={'#D9D9D9'} onPress={() => navigation.goBack()} />
 				</View>
-				<MainText style={{ alignSelf: 'center', marginTop: 30 }}>공지사항</MainText>
 
 				<View style={{ flexDirection: 'row', marginTop: 20, alignSelf: 'center' }}>
 					<AnnBox style={{ marginRight: 15, backgroundColor: selectedMenu === '전체' ? '#0066FF' : '#F3F3F3' }}
@@ -106,6 +110,16 @@ const AnnImg = styled.Image`
 	width: 40px;
 	height: 40px;
 	margin: 5px;
+`;
+
+const LocationBox = styled.TouchableOpacity`
+	width: 130px;
+	height: 25px;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+	background-color: #0066FF;
+	border-radius: 15px;
 `;
 
 export default Info1;

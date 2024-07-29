@@ -19,10 +19,15 @@ import Money from "./src/pages/Money";
 import GiftCard from "./src/pages/GiftCard";
 
 import Setting from "./src/pages/Setting";
+
 import Todo from "./src/pages/Todo";
+
 import Salary from "./src/pages/Salary";
 import Salary_Setting from "./src/pages/Salary_Setting";
+
 import Info1 from "./src/pages/Info1";
+
+import Chatting from "./src/pages/Chatting";
 
 const Stack = createStackNavigator();
 
@@ -44,10 +49,15 @@ export default function App() {
 				<Stack.Screen name="GiftCard" component={GiftCard} />
 
 				<Stack.Screen name="Setting" component={Setting} />
+
 				<Stack.Screen name="Todo" component={Todo} />
+
 				<Stack.Screen name="Salary" component={Salary} />
 				<Stack.Screen name="Salary_Setting" component={Salary_Setting} />
+
 				<Stack.Screen name="Info1" component={Info1} />
+
+				<Stack.Screen name="Chatting" component={Chatting} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

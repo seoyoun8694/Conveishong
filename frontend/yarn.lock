@@ -5975,7 +5975,7 @@ __metadata:
     prettier: 2.8.8
     react: 18.2.0
     react-native: 0.74.1
-    react-native-calendars: ^1.1305.0
+    react-native-calendars: ^1.1306.0
     react-native-fs: ^2.20.0
     react-native-gesture-handler: ^2.17.1
     react-native-image-picker: ^7.1.2
@@ -9161,9 +9161,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-calendars@npm:^1.1305.0":
-  version: 1.1305.0
-  resolution: "react-native-calendars@npm:1.1305.0"
+"react-native-calendars@npm:^1.1306.0":
+  version: 1.1306.0
+  resolution: "react-native-calendars@npm:1.1306.0"
   dependencies:
     hoist-non-react-statics: ^3.3.1
     lodash: ^4.17.15
@@ -9176,7 +9176,7 @@ __metadata:
   dependenciesMeta:
     moment:
       optional: true
-  checksum: bf50aa57f0e1efd3837319e9f119ebbd85c293be2d21c533850d105992872b2d4f0c1e58c1c4301655fd1b2b1ee9d26f9242c055a7f14ed57baacb1917c86e83
+  checksum: 15a8c1480f4635aeabe9b1a31136b0d59959faabb7b298ed637158a102b308f46d775f3d2f14fd2b2f171e982f445a71a196b7d9f00826048cdc4ffaf0c4021c
   languageName: node
   linkType: hard
 

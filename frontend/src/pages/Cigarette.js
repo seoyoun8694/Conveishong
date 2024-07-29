@@ -91,7 +91,7 @@ function Cigarette({ }) {
 	return (
 		<FullView>
 			<MainView>
-			<View style={{ flexDirection: 'row', marginTop: 30, position: 'absolute' }}>
+				<View style={{ flexDirection: 'row', marginTop: 30, position: 'absolute' }}>
 					<images.Back_icon color={'#D9D9D9'} onPress={() => navigation.goBack()} />
 				</View>
 				<LocationBox style={{ alignSelf: 'center', marginTop: 30 }}>

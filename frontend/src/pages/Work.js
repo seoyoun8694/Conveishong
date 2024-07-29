@@ -83,7 +83,7 @@ function Work({ }) {
 						<images.location width={12} hight={12} />
 						<MainText style={{ fontSize: 10, marginLeft: 5, fontWeight: 'normal' }}>{userData.userLocation}</MainText>
 					</View>
-					<images.chatting />
+					<images.chatting onPress={() => navigation.navigate('Chatting')} />
 				</View>
 
 				<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
