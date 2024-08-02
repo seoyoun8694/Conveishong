@@ -16,5 +16,5 @@ public class Todo {
     private String todoName;
     private String todoDay;
     private String todoDone;
-    private Long userId;
+    private String conveiLocation;
 }
