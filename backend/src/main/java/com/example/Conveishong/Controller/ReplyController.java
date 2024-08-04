@@ -6,10 +6,7 @@ import com.example.Conveishong.Service.ReplyService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,7 +26,7 @@ public class ReplyController {
             return ResponseEntity.ok("생성 실패!");
         }
     }
-    @PostMapping("/api/v1/getReply/{boardId}")
+    @GetMapping("/api/v1/getReply/{boardId}")
     public ResponseEntity<?> getReply(@PathVariable String boardId){
         try{
             List<Reply> Replies = replyService.getReply(Long.valueOf(boardId));
@@ -39,7 +36,7 @@ public class ReplyController {
             return ResponseEntity.ok("가져오기 실패!");
         }
     }
-    @PostMapping("/api/v1/updateReply/{replyId}")
+    @PutMapping("/api/v1/updateReply/{replyId}")
     public ResponseEntity<?> updateReply(@PathVariable String replyId, @RequestBody ReplyDTO replyDTO){
         try{
             replyService.updateReply(Long.valueOf(replyId), replyDTO);
@@ -49,7 +46,7 @@ public class ReplyController {
             return ResponseEntity.ok("업데이트 실패!");
         }
     }
-    @PostMapping("/api/v1/deleteReply/{replyId}")
+    @DeleteMapping("/api/v1/deleteReply/{replyId}")
     public ResponseEntity<?> deleteReply(@PathVariable String replyId){
         try{
             replyService.deleteReply(Long.valueOf(replyId));
