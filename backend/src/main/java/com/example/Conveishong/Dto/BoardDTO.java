@@ -12,4 +12,5 @@ public class BoardDTO {
     private Long likeRate;
     private String boardPhoto;
     private String conveiLocation;
+    private String content;
 }

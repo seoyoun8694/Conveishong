@@ -31,6 +31,7 @@ public class BoardService {
         board.setTitle(boardDTO.getTitle());
         board.setUserId(boardDTO.getUserId());
         board.setWrittenDate(boardDTO.getWrittenDate());
+        board.setContent(boardDTO.getContent());
 
         boardRepository.save(board);
     }
@@ -45,6 +46,7 @@ public class BoardService {
         board.setBoardPhoto(boardDTO.getBoardPhoto());
         board.setLikeRate(boardDTO.getLikeRate());
         board.setTitle(boardDTO.getTitle());
+        board.setContent(boardDTO.getContent());
 
         boardRepository.save(board);
     }

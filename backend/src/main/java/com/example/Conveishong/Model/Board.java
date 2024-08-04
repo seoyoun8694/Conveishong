@@ -20,4 +20,5 @@ public class Board {
     private Long likeRate;
     private String boardPhoto;
     private String conveiLocation;
+    private String content;
 }

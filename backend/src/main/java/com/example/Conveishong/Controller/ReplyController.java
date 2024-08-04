@@ -1,6 +1,7 @@
 package com.example.Conveishong.Controller;
 
 import com.example.Conveishong.Dto.ReplyDTO;
+import com.example.Conveishong.Model.Reply;
 import com.example.Conveishong.Service.ReplyService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -29,8 +32,8 @@ public class ReplyController {
     @PostMapping("/api/v1/getReply/{boardId}")
     public ResponseEntity<?> getReply(@PathVariable String boardId){
         try{
-            replyService.getReply(Long.valueOf(boardId));
-            return ResponseEntity.ok("가져오기 성공!");
+            List<Reply> Replies = replyService.getReply(Long.valueOf(boardId));
+            return ResponseEntity.ok(Replies);
         }
         catch (Exception e){
             return ResponseEntity.ok("가져오기 실패!");
