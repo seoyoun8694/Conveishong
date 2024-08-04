@@ -7,14 +7,13 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "todo")
-public class Todo {
+@Table(name = "goWork")
+public class GoWork {
     @Id
-    @Column(name = "todo_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long todoId;
-    private String todoName;
-    private String todoDay;
-    private String todoDone;
-    private String conveiLocation;
+    private Long goWorkId;
+    private Long userId;
+    private String goWorkDay;
+    private String goWorkTime;
+    private String goHomeTime;
 }
