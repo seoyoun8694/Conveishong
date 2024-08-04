@@ -2,6 +2,7 @@ package com.example.Conveishong.Service;
 
 import com.example.Conveishong.Dto.TodoDTO;
 import com.example.Conveishong.Model.Todo;
+import com.example.Conveishong.Model.User;
 import com.example.Conveishong.Repository.TodoRepository;
 import com.example.Conveishong.Repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -18,35 +19,33 @@ public class TodoService {
     @Autowired
     UserRepository userRepository;
 
-    public TodoDTO createTodo(Long userId, TodoDTO todoDTO){
+    public void createTodo(Long userId, TodoDTO todoDTO){
         Todo todo = new Todo();
-        todo.setConveiLocation(userRepository.findUserLocationByUserId(userId));
+        User user = userRepository.findByUserId(userId);
+        todo.setConveiLocation(user.getUserLocation());
         todo.setTodoDay(todoDTO.getTodoDay());
         todo.setTodoDone(todoDTO.getTodoDone());
         todo.setTodoName(todoDTO.getTodoName());
 
-        Todo savedTodo = todoRepository.save(todo);
-        return convertToDTO(savedTodo);
-
+        todoRepository.save(todo);
     }
     public List<Todo> getTodoByLocation(Long userId){
-        return todoRepository.findAllByConveiLocation(userRepository.findUserLocationByUserId(userId));
+        User user = userRepository.findByUserId(userId);
+        return todoRepository.findAllByConveiLocation(user.getUserLocation());
     }
-    public List<Todo> getTodoByTodoId(Long todoId){
-        return todoRepository.findAllByTodoId(todoId);
+    public Todo getTodoByTodoId(Long todoId){
+        return todoRepository.findByTodoId(todoId);
     }
-    public String updateTodo(Long todoId, TodoDTO todoDTO){
-        
-    }
+    public void updateTodo(Long todoId, TodoDTO todoDTO){
+         Todo todo = todoRepository.findByTodoId(todoId);
+         if(todoDTO.getTodoName() != null) todo.setTodoName(todoDTO.getTodoName());
+         if(todoDTO.getTodoDone() != null) todo.setTodoDone(todoDTO.getTodoDone());
+         if(todoDTO.getTodoDay() != null) todo.setTodoDay(todoDTO.getTodoDay());
 
-    private TodoDTO convertToDTO(Todo todo){
-        TodoDTO dto = new TodoDTO();
-        dto.setTodoId(todo.getTodoId());
-        dto.setTodoName(todo.getTodoName());
-        dto.setTodoDay(todo.getTodoDay());
-        dto.setConveiLocation(todo.getConveiLocation());
-        dto.setTodoDone(todo.getTodoDone());
-        return dto;
+         todoRepository.save(todo);
+    }
+    public void deleteTodo(Long todoId){
+        todoRepository.deleteTodoByTodoId(todoId);
     }
 
 }
