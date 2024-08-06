@@ -126,7 +126,7 @@ public class UserService {
     public User getUserInfo(Long userId){
         return userRepository.findByUserId(userId);
     }
-    public UserDTO updateUserInfo(Long userId, UserDTO userDTO){
+    public void updateUserInfo(Long userId, UserDTO userDTO){
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -137,20 +137,6 @@ public class UserService {
         if (userDTO.getUserImage() != null) user.setUserImage(userDTO.getUserImage());
         if (userDTO.getUserMoney() != null) user.setUserMoney(userDTO.getUserMoney());
 
-        User updatedUser = userRepository.save(user);
-        return convertToDTO(updatedUser);
+        userRepository.save(user);
     }
-    private UserDTO convertToDTO(User user) {
-        UserDTO dto = new UserDTO();
-        dto.setUserId(user.getUserId());
-        dto.setUserName(user.getUserName());
-        dto.setUserRole(user.getUserRole());
-        dto.setUserLocation(user.getUserLocation());
-        dto.setUserPhoneNum(user.getUserPhoneNum());
-        dto.setUserImage(user.getUserImage());
-        dto.setUserMoney(user.getUserMoney());
-        return dto;
-    }
-
-    
 }

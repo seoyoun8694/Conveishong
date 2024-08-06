@@ -15,7 +15,7 @@ public class StackService {
     @Autowired
     StackRepository stackRepository;
 
-    public StackDTO createStack(StackDTO stackDTO){
+    public void createStack(StackDTO stackDTO){
         Stack stack = new Stack();
         stack.setStackDay(stackDTO.getStackDay());
         stack.setStackName(stackDTO.getStackName());
@@ -24,8 +24,7 @@ public class StackService {
         stack.setMarketName(stackDTO.getMarketName());
         stack.setUserId(stackDTO.getUserId());
 
-        Stack savedStack = stackRepository.save(stack);
-        return convertToDTO(savedStack);
+        stackRepository.save(stack);
     }
 
     public List<Stack> getStackByStackDayAndMarketName(StackDTO stackDTO){
@@ -41,15 +40,4 @@ public class StackService {
         return stackRepository.findByStackDayAndMarketNameAndStackType(stackDay, marketName, stackType);
     }
 
-    private StackDTO convertToDTO(Stack stack) {
-        StackDTO dto = new StackDTO();
-        dto.setStackId(stack.getStackId());
-        dto.setMarketName(stack.getMarketName());
-        dto.setStackName(stack.getStackName());
-        dto.setStackNum(stack.getStackNum());
-        dto.setStackType(stack.getStackType());
-        dto.setStackDay(stack.getStackDay());
-        dto.setUserId(stack.getUserId());
-        return dto;
-    }
 }

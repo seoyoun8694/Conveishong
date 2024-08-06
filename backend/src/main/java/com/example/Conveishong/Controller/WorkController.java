@@ -23,7 +23,7 @@ public class WorkController {
     @PostMapping("/api/v1/createWorkTime/{userId}")
     public String createUserWorkTime(@PathVariable String userId, @RequestBody WorkDTO workDTO) {
         try {
-            WorkDTO createdWork = workService.createUserWorkTime(Long.valueOf(userId), workDTO);
+            workService.createUserWorkTime(Long.valueOf(userId), workDTO);
             return ("유저 근무시간 반영 성공!");
         } catch (Exception e) {
             return ("유저 근무시간 반영 실패!");

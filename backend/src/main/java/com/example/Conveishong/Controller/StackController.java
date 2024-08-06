@@ -21,7 +21,7 @@ public class StackController {
     @PostMapping("/api/v1/createStack")
     public String createStack(@RequestBody StackDTO stackDTO){
         try{
-            StackDTO createdStack = stackService.createStack(stackDTO);
+            stackService.createStack(stackDTO);
             return("시재 기록 성공!");
         }
         catch(Exception e){
