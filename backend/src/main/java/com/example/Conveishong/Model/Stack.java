@@ -12,7 +12,7 @@ public class Stack {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long stackId;
-    private Long marketId;
+    private String marketName;
     private String stackName;
     private Long stackNum;
     private String stackType;

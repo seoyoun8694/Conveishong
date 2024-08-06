@@ -29,10 +29,10 @@ public class StackController {
         }
     }
 
-    @GetMapping("/api/v1/getStackByStackDayAndMarketId/{stackDay}/{marketId}")
-    public ResponseEntity<?> getStackByStackDayAndMarketId(@PathVariable String stackDay, @PathVariable String marketId){
+    @GetMapping("/api/v1/getStackByStackDayAndMarketId")
+    public ResponseEntity<?> getStackByStackDayAndMarketId(@RequestBody StackDTO stackDTO){
         try{
-            List<Stack> stacks = stackService.getStackByStackDayAndMarketId(stackDay,Long.valueOf(marketId));
+            List<Stack> stacks = stackService.getStackByStackDayAndMarketName(stackDTO);
             List<StackDTO> stackDTOs = stacks.stream()
                     .map(this::convertToDTO)
                     .collect(Collectors.toList());
@@ -41,10 +41,10 @@ public class StackController {
             return ResponseEntity.ok("정보 불러오기 실패");
         }
     }
-    @GetMapping("/api/v1/getStackDayAndMarketIdAndStackType/{stackDay}/{marketId}/{stackType}")
-    public ResponseEntity<?> getStackDayAndMarketIdAndStackType(@PathVariable String stackDay, @PathVariable String marketId, @PathVariable String stackType){
+    @GetMapping("/api/v1/getByStackDayAndMarketNameAndStackType")
+    public ResponseEntity<?> getStackDayAndMarketIdAndStackType(@RequestBody StackDTO stackDTO){
         try{
-            List<Stack> stacks = stackService.getByStackDayAndMarketIdAndStackType(stackDay,Long.valueOf(marketId), stackType);
+            List<Stack> stacks = stackService.getByStackDayAndMarketNameAndStackType(stackDTO);
             List<StackDTO> stackDTOs = stacks.stream()
                     .map(this::convertToDTO)
                     .collect(Collectors.toList());
@@ -57,7 +57,7 @@ public class StackController {
     private StackDTO convertToDTO(Stack stack) {
         StackDTO dto = new StackDTO();
         dto.setStackId(stack.getStackId());
-        dto.setMarketId(stack.getMarketId());
+        dto.setMarketName(stack.getMarketName());
         dto.setStackName(stack.getStackName());
         dto.setStackNum(stack.getStackNum());
         dto.setStackType(stack.getStackType());
