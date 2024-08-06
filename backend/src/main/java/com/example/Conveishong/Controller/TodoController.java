@@ -67,7 +67,7 @@ public class TodoController {
             return ResponseEntity.ok("삭제 성공!");
         }
         catch (Exception e){
-            return ResponseEntity.ok("삭제 실패!");
+            return ResponseEntity.ok(e);
         }
     }
 
