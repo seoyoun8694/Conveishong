@@ -21,25 +21,30 @@ public class StackService {
         stack.setStackName(stackDTO.getStackName());
         stack.setStackNum(stackDTO.getStackNum());
         stack.setStackType(stackDTO.getStackType());
-        stack.setMarketId(stackDTO.getMarketId());
+        stack.setMarketName(stackDTO.getMarketName());
         stack.setUserId(stackDTO.getUserId());
 
         Stack savedStack = stackRepository.save(stack);
         return convertToDTO(savedStack);
     }
 
-    public List<Stack> getStackByStackDayAndMarketId(String stackDay, Long marketId){
-        return stackRepository.findByStackDayAndMarketId(stackDay, marketId);
+    public List<Stack> getStackByStackDayAndMarketName(StackDTO stackDTO){
+        String stackDay = stackDTO.getStackDay();
+        String marketName = stackDTO.getMarketName();
+        return stackRepository.findByStackDayAndMarketName(stackDay, marketName);
     }
 
-    public List<Stack> getByStackDayAndMarketIdAndStackType(String stackDay, Long marketId, String stackType){
-        return stackRepository.findByStackDayAndMarketIdAndStackType(stackDay, marketId, stackType);
+    public List<Stack> getByStackDayAndMarketNameAndStackType(StackDTO stackDTO){
+        String stackDay = stackDTO.getStackDay();
+        String marketName = stackDTO.getMarketName();
+        String stackType = stackDTO.getStackType();
+        return stackRepository.findByStackDayAndMarketNameAndStackType(stackDay, marketName, stackType);
     }
 
     private StackDTO convertToDTO(Stack stack) {
         StackDTO dto = new StackDTO();
         dto.setStackId(stack.getStackId());
-        dto.setMarketId(stack.getMarketId());
+        dto.setMarketName(stack.getMarketName());
         dto.setStackName(stack.getStackName());
         dto.setStackNum(stack.getStackNum());
         dto.setStackType(stack.getStackType());

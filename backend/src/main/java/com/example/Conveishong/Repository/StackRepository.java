@@ -10,6 +10,6 @@ import java.util.List;
 public interface StackRepository extends JpaRepository<Stack, Long> {
     public List<Stack> findByStackDay(String stackDay);
     public List<Stack> findByStackName(String stackName);
-    public List<Stack> findByStackDayAndMarketId(String stackDay, Long marketId);
-    public List<Stack> findByStackDayAndMarketIdAndStackType(String stackDay, Long marketId, String stackType);
+    public List<Stack> findByStackDayAndMarketName(String stackDay, String marketName);
+    public List<Stack> findByStackDayAndMarketNameAndStackType(String stackDay, String marketName, String stackType);
 }
