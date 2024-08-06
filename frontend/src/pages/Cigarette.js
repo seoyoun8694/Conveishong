@@ -2,7 +2,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable react/self-closing-comp */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	View,
 	TouchableOpacity,
@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import styled from "styled-components/native";
+import axios from 'axios';
 
 import images from '../components/imgaes';
 
@@ -51,8 +52,10 @@ const getChosung = (text) => {
 
 function Cigarette({ }) {
 	const navigation = useNavigation();
-	const user_location = 'GS25테크노파크점';
+	const user_id = '1';
+	const stackType = 'tabacco'
 
+	const [userLocation, setUserLocation] = useState('');
 	const [searchText, setSearchText] = useState('');
 	const [selectedConsonant, setSelectedConsonant] = useState('전체');
 	const [counts, setCounts] = useState(data.reduce((acc, item) => ({ ...acc, [item.id]: 0 }), {}));
@@ -65,6 +68,19 @@ function Cigarette({ }) {
 		const matchesSearchText = item.name.includes(searchText);
 		return matchesConsonant && matchesSearchText;
 	});
+
+	useEffect(() => {
+		const fetchUserInfo = async () => {
+			try {
+				const response = await axios.get(`http://43.200.15.190:4000/api/v1/getUserInfo/${user_id}`);
+				setUserLocation(response.data.userLocation);
+			} catch (error) {
+				console.error("Failed to fetch user info:", error);
+			}
+		};
+
+		fetchUserInfo();
+	}, [user_id]);
 
 	const incrementCount = (id) => {
 		setCounts((prevCounts) => ({
@@ -96,7 +112,7 @@ function Cigarette({ }) {
 				</View>
 				<LocationBox style={{ alignSelf: 'center', marginTop: 30 }}>
 					<images.location width={12} hight={12} />
-					<SubText style={{ color: 'white', marginLeft: 5 }}>{user_location}</SubText>
+					<SubText style={{ color: 'white', marginLeft: 5 }}>{userLocation}</SubText>
 				</LocationBox>
 
 				<SerchBox>

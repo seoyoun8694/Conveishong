@@ -1,7 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable no-mixed-spaces-and-tabs */
-/* eslint-disable react/self-closing-comp */
-
 import React, { useState, useEffect } from 'react';
 import {
 	View,
@@ -12,10 +8,11 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import styled from "styled-components/native";
 import { CalendarProvider, WeekCalendar } from "react-native-calendars";
+import axios from 'axios';
 
 import images from '../components/imgaes';
 
-function Todo({}) {
+function Todo() {
 	const navigation = useNavigation();
 	const user_id = '1';
 	
@@ -30,31 +27,95 @@ function Todo({}) {
         setCurrentMonthYear(currentDate.toLocaleString('ko-KR', { year: 'numeric', month: 'long' }));
     }, [currentDate]);
 
-    const handleAddTodo = () => {
-        setTodos([...todos, { id: todos.length, text: '내용', completed: false }]);
+    const fetchTodos = async () => {
+        try {
+            const response = await axios.get(`http://43.200.15.190:4000/api/v1/getTodoByLocation/${user_id}`);
+            if (Array.isArray(response.data)) {
+                setTodos(response.data);
+                const initialSelectedTodos = {};
+                response.data.forEach(todo => {
+                    initialSelectedTodos[todo.todoId] = todo.todoDone === "true";
+                });
+                setSelectedTodos(initialSelectedTodos);
+            } else {
+                console.error('Unexpected response structure:', response.data);
+                setTodos([]);
+            }
+        } catch (error) {
+            console.error('Error fetching todos:', error);
+            setTodos([]);
+        }
     };
 
-    const handleTodoPress = (id) => {
+    useEffect(() => {
+        fetchTodos();
+    }, []);
+
+    const handleAddTodo = async () => {
+        const newTodo = { todoId: todos.length + 1, todoName: '내용', todoDone: false, todoDay: currentDate.toISOString().split('T')[0] };
+        setTodos([...todos, newTodo]);
+
+        try {
+            await axios.post(`http://43.200.15.190:4000/api/v1/createTodo/${user_id}`, {
+                todoDay: newTodo.todoDay,
+                todoDone: "false",
+                todoName: newTodo.todoName,
+            });
+        } catch (error) {
+            console.error('Error adding todo:', error);
+        }
+    };
+
+    const handleTodoPress = async (id) => {
+        const selectedTodo = todos.find(todo => todo.todoId === id);
+        const updatedDoneStatus = !selectedTodos[id];
+    
         setSelectedTodos(prevState => ({
             ...prevState,
-            [id]: !prevState[id],
+            [id]: updatedDoneStatus,
         }));
+    
+        try {
+            await axios.put(`http://43.200.15.190:4000/api/v1/updateTodo/${id}`, {
+                todoDone: updatedDoneStatus ? "true" : "false",
+                todoName: selectedTodo.todoName,
+            });
+        } catch (error) {
+            console.error('Error updating todo:', error);
+        }
     };
 
     const handleEditPress = (todo) => {
-        setEditingTodo(todo.id);
-        setEditedText(todo.text);
+        setEditingTodo(todo.todoId);
+        setEditedText(todo.todoName);
     };
 
-    const handleSavePress = () => {
-        setTodos(todos.map(todo => todo.id === editingTodo ? { ...todo, text: editedText } : todo));
-        setEditingTodo(null);
-        setEditedText('');
+    const handleSavePress = async () => {
+        try {
+            await axios.put(`http://43.200.15.190:4000/api/v1/updateTodo/${editingTodo}`, {
+                todoName: editedText,
+                todoDone: selectedTodos[editingTodo] ? "true" : "false",
+            });
+            setTodos(todos.map(todo => 
+                todo.todoId === editingTodo ? { ...todo, todoName: editedText } : todo
+            ));
+            setEditingTodo(null);
+            setEditedText('');
+        } catch (error) {
+            console.error('Error updating todo name:', error);
+        }
     };
 
-    const handleDeleteTodo = (id) => {
-        setTodos(todos.filter(todo => todo.id !== id));
+    const handleDeleteTodo = async (id) => {
+        try {
+            await axios.delete(`http://43.200.15.190:4000/api/v1/deleteTodo/${id}`);
+            setTodos(todos.filter(todo => todo.todoId !== id));
+        } catch (error) {
+            console.error('Error deleting todo:', error);
+        }
     };
+
+    const filteredTodos = todos.filter(todo => todo.todoDay === currentDate.toISOString().split('T')[0]);
 
 	return (
 		<FullView>
@@ -63,7 +124,7 @@ function Todo({}) {
 					<images.Back_icon color={'#D9D9D9'} onPress={() => navigation.goBack()} />
 				</View>
 				<MainText style={{ alignSelf: 'center', marginTop: 30 }}>할 일 점검</MainText>
-				<MainText style={{ alignSelf: 'center', marginTop: 20, marginBottom: 10,}}>{currentMonthYear}</MainText>
+				<MainText style={{ alignSelf: 'center', marginTop: 20, marginBottom: 10 }}>{currentMonthYear}</MainText>
 			</MainView>
 			<CalendarProvider
 				date={currentDate.toISOString().split('T')[0]}
@@ -79,30 +140,31 @@ function Todo({}) {
 					</TouchableOpacity>
 					<Text>항목 추가하기</Text>
 				</View>
-				{todos.map(todo => (
-					<View key={todo.id} style={{ justifyContent: 'space-between', flexDirection: 'row', marginBottom: 20 }}>
+				{filteredTodos.map(todo => (
+					<View key={todo.todoId} style={{ justifyContent: 'space-between', flexDirection: 'row', marginBottom: 20 }}>
 						<View style={{ flexDirection: 'row' }}>
-							<Todos onPress={() => handleTodoPress(todo.id)} selected={selectedTodos[todo.id]}>
-								{selectedTodos[todo.id]}
+							<Todos onPress={() => handleTodoPress(todo.todoId)} selected={selectedTodos[todo.todoId]}>
+								{selectedTodos[todo.todoId]}
 							</Todos>
-							{editingTodo === todo.id ? (
+							{editingTodo === todo.todoId ? (
 								<TextInput
 									style={{ borderBottomWidth: 1, borderColor: '#0066FF', width: '70%', height: 40 }}
 									value={editedText}
 									onChangeText={setEditedText}
+									autoFocus={true}
 								/>
 							) : (
 								<TouchableOpacity onPress={() => handleEditPress(todo)}>
-									<Text style={{ color: selectedTodos[todo.id] ? '#A9A9A9' : 'black' }}>{todo.text}</Text>
+									<Text style={{ color: selectedTodos[todo.todoId] ? '#A9A9A9' : 'black' }}>{todo.todoName}</Text>
 								</TouchableOpacity>
 							)}
 						</View>
-						{editingTodo === todo.id ? (
+						{editingTodo === todo.todoId ? (
 							<TouchableOpacity onPress={handleSavePress}>
 								<Text style={{ color: '#0066FF' }}>완료</Text>
 							</TouchableOpacity>
 						) : (
-							<TouchableOpacity onPress={() => handleDeleteTodo(todo.id)}>
+							<TouchableOpacity onPress={() => handleDeleteTodo(todo.todoId)}>
 								<images.trash />
 							</TouchableOpacity>
 						)}

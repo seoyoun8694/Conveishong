@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import styled from "styled-components/native";
+import axios from 'axios';
 
 import images from '../components/imgaes';
 
@@ -29,12 +30,26 @@ const denominations = [
 
 function Money({ }) {
 	const navigation = useNavigation();
-	const user_location = 'GS25테크노파크점';
+	const user_id = '1';
+	const [userLocation, setUserLocation] = useState('');
 
 	const [counts, setCounts] = useState(denominations.reduce((acc, item) => ({ ...acc, [item.id]: 0 }), {}));
 	const [initialCounts] = useState({ ...counts });
 	const [totalMoney, setTotalMoney] = useState(0);
 	const [modalVisible, setModalVisible] = useState(false);
+
+	useEffect(() => {
+		const fetchUserInfo = async () => {
+			try {
+				const response = await axios.get(`http://43.200.15.190:4000/api/v1/getUserInfo/${user_id}`);
+				setUserLocation(response.data.userLocation);
+			} catch (error) {
+				console.error("Failed to fetch user info:", error);
+			}
+		};
+
+		fetchUserInfo();
+	}, [user_id]);
 
 	useEffect(() => {
 		const total = denominations.reduce((acc, item) => acc + (counts[item.id] * item.value), 0);
@@ -74,7 +89,7 @@ function Money({ }) {
 				</View>
 				<LocationBox style={{ alignSelf: 'center', marginTop: 30 }}>
 					<images.location width={12} hight={12} />
-					<SubText style={{ color: 'white', marginLeft: 5 }}>{user_location}</SubText>
+					<SubText style={{ color: 'white', marginLeft: 5 }}>{userLocation}</SubText>
 				</LocationBox>
 
 				<FlatList style={{ marginTop: 20 }}
