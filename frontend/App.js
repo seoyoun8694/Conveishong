@@ -26,6 +26,7 @@ import Salary from "./src/pages/Salary";
 import Salary_Setting from "./src/pages/Salary_Setting";
 
 import Info1 from "./src/pages/Info1";
+import Info2 from "./src/pages/Info2";
 
 import Chatting from "./src/pages/Chatting";
 
@@ -56,6 +57,7 @@ export default function App() {
 				<Stack.Screen name="Salary_Setting" component={Salary_Setting} />
 
 				<Stack.Screen name="Info1" component={Info1} />
+				<Stack.Screen name="Info2" component={Info2} />
 
 				<Stack.Screen name="Chatting" component={Chatting} />
 			</Stack.Navigator>

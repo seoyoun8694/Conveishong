@@ -16,7 +16,9 @@ import { CalendarProvider, WeekCalendar } from "react-native-calendars";
 import images from '../components/imgaes';
 
 function Todo({}) {
-    const navigation = useNavigation();
+	const navigation = useNavigation();
+	const user_id = '1';
+	
     const [currentDate, setCurrentDate] = useState(new Date());
     const [currentMonthYear, setCurrentMonthYear] = useState(currentDate.toLocaleString('ko-KR', { year: 'numeric', month: 'long' }));
     const [todos, setTodos] = useState([]);
@@ -61,7 +63,7 @@ function Todo({}) {
 					<images.Back_icon color={'#D9D9D9'} onPress={() => navigation.goBack()} />
 				</View>
 				<MainText style={{ alignSelf: 'center', marginTop: 30 }}>할 일 점검</MainText>
-				<MainText style={{ alignSelf: 'center', marginTop: 30, marginBottom: 10, color: '#0066FF' }}>{currentMonthYear}</MainText>
+				<MainText style={{ alignSelf: 'center', marginTop: 20, marginBottom: 10,}}>{currentMonthYear}</MainText>
 			</MainView>
 			<CalendarProvider
 				date={currentDate.toISOString().split('T')[0]}
@@ -107,6 +109,9 @@ function Todo({}) {
 					</View>
 				))}
 			</MainView>
+			<CompleteButton style={{ position: 'absolute', bottom: 30 }} onPress={() => navigation.goBack()}>
+				<MainText style={{ color: 'white' }}>완료</MainText>
+			</CompleteButton>
 		</FullView>
 	);
 }
@@ -142,6 +147,18 @@ const Todos = styled.TouchableOpacity`
 	margin-right: 10px;
 	justify-content: center;
 	align-items: center;
+`;
+
+const CompleteButton = styled.TouchableOpacity`
+	width: 80%;
+	height: 40px;
+	background-color: #0066FF;
+	border-radius: 15px;
+	align-items: center;
+	justify-content: center;
+	align-self: center;
+	position: absolute;
+	bottom: 30px;
 `;
 
 export default Todo;
