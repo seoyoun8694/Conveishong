@@ -6,6 +6,7 @@ import com.example.Conveishong.Repository.ReplyRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class ReplyService {
 
         replyRepository.save(reply);
     }
+    @Transactional
     public void deleteReply(Long replyId){
         replyRepository.deleteReplyByReplyId(replyId);
     }

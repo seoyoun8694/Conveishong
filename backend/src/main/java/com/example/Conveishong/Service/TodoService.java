@@ -8,6 +8,7 @@ import com.example.Conveishong.Repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -44,6 +45,7 @@ public class TodoService {
 
          todoRepository.save(todo);
     }
+    @Transactional
     public void deleteTodo(Long todoId){
         todoRepository.deleteTodoByTodoId(todoId);
     }

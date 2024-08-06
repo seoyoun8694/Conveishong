@@ -8,6 +8,7 @@ import com.example.Conveishong.Repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -50,6 +51,7 @@ public class BoardService {
 
         boardRepository.save(board);
     }
+    @Transactional
     public void deleteBoard(Long boardId){
         boardRepository.deleteBoardByBoardId(boardId);
     }
