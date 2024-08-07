@@ -63,7 +63,7 @@ function Inspection({ }) {
 						<images.menu color={'white'} />
 					</TouchableOpacity>
 					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-						<images.location width={12} hight={12} />
+						<images.location color={'white'} width={12} hight={12} />
 						<MainText style={{ fontSize: 10, marginLeft: 5, fontWeight: 'normal' }}>{userData.userLocation}</MainText>
 					</View>
 					<images.chatting onPress={() => navigation.navigate('Chatting')} />

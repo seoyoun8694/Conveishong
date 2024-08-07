@@ -63,7 +63,7 @@ function Info2({}) {
 		<FullView>
 			<MainView>
 				<LocationBox style={{ alignSelf: 'center', marginTop: 30 }}>
-					<images.location width={12} hight={12} />
+					<images.location color={'white'} width={12} hight={12} />
 					<SubText style={{ color: 'white', marginLeft: 5 }}>{user_location}</SubText>
 				</LocationBox>
 				<View style={{ flexDirection: 'row', marginTop: 30, position: 'absolute' }}>

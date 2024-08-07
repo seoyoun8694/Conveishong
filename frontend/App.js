@@ -19,6 +19,8 @@ import Money from "./src/pages/Money";
 import GiftCard from "./src/pages/GiftCard";
 
 import Setting from "./src/pages/Setting";
+import Setting_location from "./src/pages/Setting_location";
+import Setting_Workday from "./src/pages/Setting_Workday";
 
 import Todo from "./src/pages/Todo";
 
@@ -50,6 +52,8 @@ export default function App() {
 				<Stack.Screen name="GiftCard" component={GiftCard} />
 
 				<Stack.Screen name="Setting" component={Setting} />
+				<Stack.Screen name="Setting_location" component={Setting_location} />
+				<Stack.Screen name="Setting_Workday" component={Setting_Workday} />
 
 				<Stack.Screen name="Todo" component={Todo} />
 

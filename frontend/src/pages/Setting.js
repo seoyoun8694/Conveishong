@@ -2,18 +2,13 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable react/self-closing-comp */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
 	View,
 	TouchableOpacity,
-	Text,
-	FlatList,
-	Modal,
-	ScrollView,
 	Image,
-	TextInput,
 } from "react-native";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import styled from "styled-components/native";
 import { launchImageLibrary } from 'react-native-image-picker';
 import axios from 'axios';
@@ -29,9 +24,10 @@ function Setting({}) {
 	const [userPhoneNum, setUserPhoneNum] = useState('');
 	const [profileImage, setProfileImage] = useState(null);
 	const [userLocation, setUserLocation] = useState('');
-	const [userWorkday, setUserWorkday] = useState('');
+	const [userWorkTime, setUserWorkTime] = useState([]);
 	
-	useEffect(() => {
+	useFocusEffect(
+		useCallback(() => {
 		axios.get(`http://43.200.15.190:4000/api/v1/getUserInfo/${user_id}`)
 			.then(response => {
 				const { userName, userPhoneNum, userImage, userLocation } = response.data;
@@ -43,7 +39,19 @@ function Setting({}) {
 			.catch(error => {
 				console.error(error);
 			});
-	}, []);
+		
+		axios.get(`http://43.200.15.190:4000/api/v1/getWorkTime/${user_id}`)
+			.then(response => {
+				const formattedWorkTime = response.data.map(workTime => {
+					return `${workTime.workDay}요일(${workTime.workStartTime}~${workTime.workEndTime})`;
+				});
+				setUserWorkTime(formattedWorkTime);
+			})
+			.catch(error => {
+				console.error(error);
+			});
+		}, [])
+	);
 
 	const pickImage = () => {
 		launchImageLibrary({ mediaType: 'photo' }, (response) => {
@@ -52,6 +60,27 @@ function Setting({}) {
 				setProfileImage(selectedImage);
 			}
 		});
+	};
+
+	const renderWorkTime = () => {
+		if (userWorkTime.length > 2) {
+			return (
+				<TouchableOpacity style={{flexDirection: 'row', marginTop: 15, paddingHorizontal: 10}}  onPress={() => navigation.navigate('Setting_Workday')}>
+					{userWorkTime.slice(0, 2).map((workTime, index) => (
+						<SubText key={index} style={{marginRight: 5}}>{workTime}</SubText>
+					))}
+					<SubText>...</SubText>
+				</TouchableOpacity>
+			);
+		} else {
+			return (
+				<TouchableOpacity style={{flexDirection: 'row', marginTop: 15, paddingHorizontal: 10}}  onPress={() => navigation.navigate('Setting_Workday')}>
+					{userWorkTime.map((workTime, index) => (
+						<SubText key={index} style={{marginRight: 5}}>{workTime}</SubText>
+					))}
+				</TouchableOpacity>
+			);
+		}
 	};
 
 	const handleSubmit = () => {
@@ -112,9 +141,15 @@ function Setting({}) {
 				/>
 
 				<MainText>근무 지역</MainText>
-				<Text onPress={navigation.navigate('SettingLocation')}>{userLocation}</Text>
+				<TouchableOpacity style={{flexDirection: 'row', marginTop: 15, paddingHorizontal: 10}} onPress={() => navigation.navigate('Setting_location')}>
+					<images.location color='gray' style={{marginRight: 5}} />
+					<SubText>{userLocation}</SubText>
+				</TouchableOpacity>
+				<TouchableOpacity style={{borderBottomWidth: 1, borderColor: 'gray', marginTop: 15, marginBottom: 20}} />
 
-				
+				<MainText>근무 요일/시간</MainText>
+				{renderWorkTime()}
+				<TouchableOpacity style={{borderBottomWidth: 1, borderColor: 'gray', marginTop: 15}} />
 			</MainView>
 			<CompleteButton onPress={handleSubmit}>
 				<MainText style={{ color: 'white' }}>완료</MainText>
@@ -144,6 +179,10 @@ const MainText = styled.Text`
 	color: ${props => props.color || "black"};
 `;
 
+const SubText = styled.Text`
+	font-size: 12px;
+`;
+
 const Profile = styled.TouchableOpacity`
 	width: 200px;
 	height: 200px;
@@ -152,7 +191,7 @@ const Profile = styled.TouchableOpacity`
 	align-self: center;
 	align-items: center;
 	justify-content: center;
-	margin-top: 40px;
+	margin-top: 30px;
 	margin-bottom: 40px;
 `;
 
@@ -161,6 +200,7 @@ const TextInputBox = styled.TextInput`
 	border-bottom-width: 1;
 	margin-bottom: 20px;
 	font-size: 12px;
+	height: 40px;
 `;
 
 const CompleteButton = styled.TouchableOpacity`
