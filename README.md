@@ -54,12 +54,32 @@
 
 ## 📺 화면 구성 - <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
 - 회원가입
+  
+  <img src="https://github.com/user-attachments/assets/55a2281f-63cb-412d-99cd-7338ec64bd46" width="150" />
+  <img src="https://github.com/user-attachments/assets/f0209c7e-65a9-400e-9dc0-11da9c389410" width="150" />
+  <img src="https://github.com/user-attachments/assets/6aca0a8b-a8ca-436c-90ab-3aa450240a2b" width="150" />
+  <img src="https://github.com/user-attachments/assets/241683f9-95e5-4259-b6fa-aee6fc6f09d6" width="150" />
+  <img src="https://github.com/user-attachments/assets/2992cbd1-d33c-432a-8651-609ba65f485f" width="150" />
+  
 - 메인/재고
+  
+  <img src="https://github.com/user-attachments/assets/a314f063-6f3e-4e22-b5fc-91f7f284453b" width="150" />
+  <img src="https://github.com/user-attachments/assets/6a7c293f-ddbf-459e-be0b-0329250dcb38" width="150" />
+  <img src="https://github.com/user-attachments/assets/d1024ebc-6b76-46f4-9c28-4131463acdb3" width="150" />
+  <img src="https://github.com/user-attachments/assets/bda08029-e8dc-4a88-846d-fd24b5e91820" width="150" />
+  <img src="" width="150" />
+  
 - 재고 확인
+  <img src="" width="150" />
+  
 - 할일 점검
+  <img src="" width="150" />
+  
 - 급여 계산
+  <img src="" width="150" />
+  
 - 공지사항
-
+  <img src="" width="150" />
 
 ***
 
