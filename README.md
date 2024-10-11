@@ -19,7 +19,7 @@
 ***
 
 ## 📃 Project Info
-> 한국공학대학교 컴퓨터공학부 개인프로젝트
+> 한국공학대학교 컴퓨터공학부 개인 프로젝트
 >
 > 개발 기간: 2024.05 ~
 
@@ -48,7 +48,7 @@
 |<img src="https://github.com/user-attachments/assets/00deaaaf-a502-47c4-bec6-009a62f45dbd" width="200" height="200"/>|<img src="https://github.com/user-attachments/assets/71ae91dd-da68-467d-b044-03513c75c8c3" width="200" height="200"/>|
 |:---:|:---:|
 |채서윤|봉성은|
-|Front-end|Back-end|
+|Front-end & Design|Back-end|
 
 ***
 
