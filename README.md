@@ -61,25 +61,35 @@
   <img src="https://github.com/user-attachments/assets/241683f9-95e5-4259-b6fa-aee6fc6f09d6" width="150" />
   <img src="https://github.com/user-attachments/assets/2992cbd1-d33c-432a-8651-609ba65f485f" width="150" />
   
-- 메인/재고
+- 출근 및 시재 점검
   
   <img src="https://github.com/user-attachments/assets/a314f063-6f3e-4e22-b5fc-91f7f284453b" width="150" />
   <img src="https://github.com/user-attachments/assets/6a7c293f-ddbf-459e-be0b-0329250dcb38" width="150" />
   <img src="https://github.com/user-attachments/assets/d1024ebc-6b76-46f4-9c28-4131463acdb3" width="150" />
   <img src="https://github.com/user-attachments/assets/bda08029-e8dc-4a88-846d-fd24b5e91820" width="150" />
-  <img src="" width="150" />
-  
-- 재고 확인
-  <img src="" width="150" />
-  
+  <img src="https://github.com/user-attachments/assets/e8831755-76a3-46a0-88d2-639e5155357b" width="150" />
+
 - 할일 점검
-  <img src="" width="150" />
   
-- 급여 계산
-  <img src="" width="150" />
+  <img src="https://github.com/user-attachments/assets/b778699d-2f6b-459a-9275-dea4fcc13bf1" width="150" />
+  <img src="https://github.com/user-attachments/assets/9574defd-1579-4600-bd84-6907ea441d94" width="150" />
+  
+- 근무 관리
+  
+  <img src="https://github.com/user-attachments/assets/d5873e55-cbaa-4acd-8b38-8ef344d2a0fa" width="150" />
+  <img src="https://github.com/user-attachments/assets/ce856e9c-8b6d-4b37-b350-8a0eb61c4a77" width="150" />
   
 - 공지사항
-  <img src="" width="150" />
+  
+  <img src="https://github.com/user-attachments/assets/81b473cb-f63b-4fa7-9d9f-6f7cebdfb143" width="150" />
+  <img src="https://github.com/user-attachments/assets/723dbcb3-6c54-42f8-9037-a841e07c8789" width="150" />
+  <img src="https://github.com/user-attachments/assets/6be53425-8c89-4d1a-8840-f180cff46186" width="150" />
+  <img src="https://github.com/user-attachments/assets/78c63633-413e-4ef4-b157-ff7003ed5e8f" width="150" />
+
+- 채팅
+  
+  <img src="https://github.com/user-attachments/assets/d1ac5101-4082-4c42-b759-1bd7e725fef7" width="150" />
+  <img src="https://github.com/user-attachments/assets/a4e02d06-4e2c-4e85-9d62-ae3f55ac0678" width="150" />
 
 ***
 
